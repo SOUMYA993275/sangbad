@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost:3308',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'sangbad',
+	'hostname' => 'localhost',
+	'username' => 'sangbyfp_testsnr',
+	'password' => 'SNRd@1234',
+	'database' => 'sangbyfp_demosnrd',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
