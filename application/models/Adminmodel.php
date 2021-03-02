@@ -7,7 +7,7 @@ class Adminmodel extends CI_Model
 		$this->db->select('*');
 		$this->db->from('users');
 		$this->db->join('menu_permission','users.slno = menu_permission.user_id','RIGHT');
-		//$this->db->join('user_permission','users.slno = user_permission.user_id','LEFT');
+		$this->db->join('user_permission','users.slno = user_permission.user_id','LEFT');
 		$this->db->where('email', $user);
 		$this->db->where('password', $pass);
 		$this->db->order_by('users.slno');
