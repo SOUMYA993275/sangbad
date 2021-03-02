@@ -212,6 +212,28 @@ class DataModel extends CI_Model
 		 $this->db->order_by('slno', $columnSortOrder);
 		 $this->db->limit($rowperpage, $start);
 		 $records = $this->db->get()->result();
+		 ## Fetch records
+		 $this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.cid,user_permission.u_status,users.name');
+		 if($searchQuery != '')
+		 $this->db->from('permission_group');
+		 $this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
+		 $this->db->join('permission_category','permission_category.cid = user_permission.action_id','LEFT');
+		 $this->db->join('users','users.slno = user_permission.user_id','LEFT');
+		 $this->db->where($searchQuery);
+		 $this->db->order_by($columnName, $columnSortOrder);
+		 $this->db->limit($rowperpage, $start);
+		 $records = $this->db->get()->result();
+		## Fetch records if search null
+		 $this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.cid,user_permission.u_status,users.name');
+		 if($searchQuery = '')
+		 $this->db->from('permission_group');
+		 $this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
+		 $this->db->join('permission_category','permission_category.cid = user_permission.action_id','LEFT');
+		 $this->db->join('users','users.slno = user_permission.user_id','LEFT');
+		 $this->db->where($searchQuery);
+		 $this->db->order_by('slno', $columnSortOrder);
+		 $this->db->limit($rowperpage, $start);
+		 $records = $this->db->get()->result();
 		 $data = array();
 
 		 foreach($records as $record ){
