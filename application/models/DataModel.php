@@ -44,14 +44,7 @@ class DataModel extends CI_Model
 		 $this->db->order_by($columnName, $columnSortOrder);
 		 $this->db->limit($rowperpage, $start);
 		 $records = $this->db->get('menumaster')->result();
-		## Fetch records if search null
-		 $this->db->select('*');
-		 if($searchQuery = '')
-		 $this->db->where($searchQuery);
-		 $this->db->where('xdelete',0);
-		 $this->db->order_by('id', $columnSortOrder);
-		 $this->db->limit($rowperpage, $start);
-		 $records = $this->db->get('menumaster')->result();
+		
 		 $data = array();
 
 		 foreach($records as $record ){
@@ -118,14 +111,6 @@ class DataModel extends CI_Model
 		 $this->db->order_by($columnName, $columnSortOrder);
 		 $this->db->limit($rowperpage, $start);
 		 $records = $this->db->get('righttabmaster')->result();
-		## Fetch records if search null
-		 $this->db->select('*');
-		 if($searchQuery = '')
-		 $this->db->where($searchQuery);
-		 $this->db->where('xdelete',0);
-		 $this->db->order_by('slno', $columnSortOrder);
-		 $this->db->limit($rowperpage, $start);
-		 $records = $this->db->get('righttabmaster')->result();
 		 $data = array();
 
 		 foreach($records as $record ){
@@ -166,87 +151,63 @@ class DataModel extends CI_Model
 		 $columnName = $postData['columns'][$columnIndex]['data']; // Column name
 		 $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
 		 $searchValue = $postData['search']['value']; // Search value
+		 
+		 /*## Custom Field value
+			$user = $postData['user'];
+			$pname = $postData['pname'];
 
-		 ## Search 
-		 $searchQuery = "";
-		 if($searchValue != ''){
-			$searchQuery = " (tabname like '%".$searchValue."%' or tabcode like '%".$searchValue."%' or tablink like'%".$searchValue."%' ) ";
-		 }
-
+			## Search 
+			$searchQuery = " ";
+			if($user != ''){
+			   $searchQuery .= " and (user_id= '".$user."' ) ";
+			}
+			if($pname != ''){
+			   $searchQuery .= " and (page_id='".$pname."') ";
+			}*/
+		 
 		 ## Total number of records without filtering
 		 $this->db->select('count(*) as allcount');
-		 $records = $this->db->get('righttabmaster')->result();
+		 $records = $this->db->get('user_permission')->result();
 		 $totalRecords = $records[0]->allcount;
 
-		 ## Total number of record with filtering
+		 /*## Total number of record with filtering
 		 $this->db->select('count(*) as allcount');
-		 if($searchQuery != '')
+		if($searchQuery != '')
 		 $this->db->where($searchQuery);
-		 $this->db->where('xdelete',0);
-		 $records = $this->db->get('righttabmaster')->result();
-		 $totalRecordwithFilter = $records[0]->allcount;
+		 $records = $this->db->get('user_permission')->result();
+		 $totalRecordwithFilter = $records[0]->allcount;*/
 
+		
+		## Total number of record with filtering
+		 $this->db->select('count(*) as allcount');
+		 //if($searchQuery = '')
+		 //$this->db->where($searchQuery);
+		 $records = $this->db->get('user_permission')->result();
+		 $totalRecordwithFilter = $records[0]->allcount;
+		 
 		 ## Fetch records
-		 $this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.cid,user_permission.u_status,users.name');
-		 if($searchQuery != '')
-		 $this->db->from('permission_group');
+		 $this->db->select('user_permission.id as uid,permission_group.page_name as pname,permission_group.id as pid,permission_category.category as category,permission_category.id as cid,user_permission.u_status as status,users.name as uname');
 		 $this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
-		 $this->db->join('permission_category','permission_category.cid = user_permission.action_id','LEFT');
+		 $this->db->join('permission_category','permission_category.id = user_permission.action_id','LEFT');
 		 $this->db->join('users','users.slno = user_permission.user_id','LEFT');
-		 $this->db->where('users.slno',$user);
-		 $this->db->where('permission_group.id',$pname);
-		 $this->db->where($searchQuery);
+		 //$this->db->where('user_id',1);
 		 $this->db->order_by($columnName, $columnSortOrder);
 		 $this->db->limit($rowperpage, $start);
-		 $records = $this->db->get()->result();
-		## Fetch records if search null
-		 $this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.cid,user_permission.u_status,users.name');
-		 if($searchQuery = '')
-		 $this->db->from('permission_group');
-		 $this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
-		 $this->db->join('permission_category','permission_category.cid = user_permission.action_id','LEFT');
-		 $this->db->join('users','users.slno = user_permission.user_id','LEFT');
-		 $this->db->where('users.slno',$user);
-		 $this->db->where('permission_group.id',$pname);
-		 $this->db->where($searchQuery);
-		 $this->db->order_by('slno', $columnSortOrder);
-		 $this->db->limit($rowperpage, $start);
-		 $records = $this->db->get()->result();
-		 ## Fetch records
-		 $this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.cid,user_permission.u_status,users.name');
-		 if($searchQuery != '')
-		 $this->db->from('permission_group');
-		 $this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
-		 $this->db->join('permission_category','permission_category.cid = user_permission.action_id','LEFT');
-		 $this->db->join('users','users.slno = user_permission.user_id','LEFT');
-		 $this->db->where($searchQuery);
-		 $this->db->order_by($columnName, $columnSortOrder);
-		 $this->db->limit($rowperpage, $start);
-		 $records = $this->db->get()->result();
-		## Fetch records if search null
-		 $this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.cid,user_permission.u_status,users.name');
-		 if($searchQuery = '')
-		 $this->db->from('permission_group');
-		 $this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
-		 $this->db->join('permission_category','permission_category.cid = user_permission.action_id','LEFT');
-		 $this->db->join('users','users.slno = user_permission.user_id','LEFT');
-		 $this->db->where($searchQuery);
-		 $this->db->order_by('slno', $columnSortOrder);
-		 $this->db->limit($rowperpage, $start);
-		 $records = $this->db->get()->result();
+		 $records = $this->db->get('permission_group')->result();
+		 
+		 		 
 		 $data = array();
 
 		 foreach($records as $record ){
 
 			$data[] = array( 
-			   "tabname"=>$record->tabname,
-			   "tabcode"=>$record->tabcode,
-			   "tablink"=>$record->tablink,
-			   "slno"=>$record->slno,
-			   "tabstatus"=>$record->tabstatus,
-			   "tabimage"=>$record->tabimage,
-			   "createdby"=>$record->createdby,
-			   "updatedby"=>$record->updatedby
+			   "uid"=>$record->uid,
+			   "pname"=>$record->pname,
+			   "pid"=>$record->pid,
+			   "category"=>$record->category,
+			   "cid"=>$record->cid,
+			   "status"=>$record->status,
+			   "uname"=>$record->uname,
 			); 
 		 }
 

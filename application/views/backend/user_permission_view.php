@@ -63,45 +63,37 @@
 							<div class="ibox-content">
 								<div class="col-lg-12">
 									<div class="panel panel-default" style="border: none;">
-										<form class="form-horizontal" role="form" name="myForm" method="POST" action="">
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>User</label>
-														<select class="form-control" name="user" id="user" required>
-															<option value="">Select User</option>
-															<?php
-															foreach($userlist as $use)
-															{
-															?>
-															<option value="<?=$use->slno;?>"><?=$use->name;?></option>
-															<?php
-															}
-															?>
-														</select>
-													</div>
-												</div>
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Page Name</label>
-														<select class="form-control" name="pname" id="pname" required>
-															<option value="">Select Page</option>
-															<?php
-															foreach($pgdetails as $pg)
-															{
-															?>
-															<option value="<?=$pg->id;?>"><?=$pg->page_name;?></option>
-															<?php
-															}
-															?>
-														</select>
-													</div>
-												</div>
-												<div class="col-lg-12" style="border-top: none; text-align: center;">
-													<button type="submit" class="btn btn-primary">Search</button>
-												</div>
-											</div>
-										</form>
+										<table>
+										 <tr>
+										   <td>
+											 <select class="form-control" name="user" id="user" required>
+												<option value="">Select User</option>
+													<?php
+													foreach($userlist as $use)
+													{
+													?>
+													<option value="<?=$use->slno;?>"><?=$use->name;?></option>
+													<?php
+													}
+													?>
+											</select>
+										   </td>
+										   <td>
+											<select class="form-control" name="pname" id="pname" required>
+												<option value="">Select Page</option>
+													<?php
+													foreach($pgdetails as $pg)
+													{
+													?>
+													<option value="<?=$pg->id;?>"><?=$pg->page_name;?></option>
+													<?php
+													}
+													?>
+											</select>
+										   </td>
+										 </tr>
+									   </table>
+										
 									</div>
 								</div>
 							</div>
@@ -125,55 +117,7 @@
 										<th>Action</th>
 									</tr>
 									</thead>
-									<tbody>
-											<?php  
-											$i=0;
-											foreach($pdetails as $mn)
-											{
-												$i++;
-											?>
-											<tr class="gradeX">
-												<td><?=$i; ?></td>
-												<td><?=$mn->name; ?></td>
-												<td><?=$mn->page_name; ?> (<?=$mn->pid; ?>)</td>
-												<td class="center"><?=$mn->category; ?> (<?=$mn->cid; ?>)</td>
-												<td class="center">
-												<?php
-												if($mn->u_status== 1)
-												{
-												?>
-												<img src='<?=base_url();?>Uploads/general/inactive.gif' title="Inactive">
-												<?php
-												}
-												else if($mn->u_status== 0)
-												{
-												?>
-												<img src='<?=base_url();?>Uploads/general/active.gif' title="Active">
-											   <?php
-												}
-												?>
-												</td>
-												<td class="center">
-												<?php
-												if($mn->u_status== 1) 
-												{ 
-												?>
-													<button onclick="activepermission('<?=$mn->id;?>')" type="button" title="Active Permission" class="btn btn-success fa fa-check-circle-o"></button>
-												<?php
-													} 
-													else if($mn->u_status== 0)
-													{ 
-												?>
-													<button onclick="inactivepermission('<?=$mn->id;?>')" type="button" title="Inactive Permission" class="btn btn-warning fa fa-check-circle-o"></button>
-												<?php
-													} 
-												?>
-												</td>
-											</tr>
-											<?php
-											}
-											?>
-									</tbody>
+									
 									</table>
 								</div>
 							</div>
@@ -204,22 +148,54 @@
 	<script src="<?=base_url();?>js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
    <script>
-  
-	$(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                pageLength: 10,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
+  $(document).ready(function(){
+		$('.dataTables-example').DataTable({
+          'processing': true,
+          'serverSide': true,
+		  "searching": false,
+          'serverMethod': 'post',
+          'ajax': {
+             'url':'<?=base_url()?>index.php/UserPermission/PermissionList'
+          },
+		  
+          'columns': [
+             //{ data: null render: function ( data, type, row, meta ) { return  data.meta+1; } },
+             { data: 'uid' },
+             { data: 'uname' },
+             { data: 'pname' },
+             { data: 'category' },
+             { data: 'status' },
+             { data: null, render: function(data, type, full, meta) {
+				switch(full.status) {
+					   case '0' : return '<button onclick="inactivepermission(' + full.uid + ')" title="Inactive Tab" class="btn btn-warning fa fa-check-circle-o"></button>'; break;
+					   case '1' : return '<button onclick="activepermission(' + full.uid + ')" title="Active Tab" class="btn btn-primary fa fa-check-circle-o"></button>'; break;
+					   default  : return 'N/A';
+					}
+				} 
+			 }
+          ],
+		  columnDefs : [
+				{ targets : [4],
+				  render : function (data, type, row) {
+					switch(data) {
+					   case '0' : return '<img src="<?=base_url();?>/Uploads/general/active.gif" title="Active"/>'; break;
+					   case '1' : return '<img src="<?=base_url();?>/Uploads/general/inactive.gif" title="Inactive">'; break;
+					   default  : return 'N/A';
+					}
+				  }
+				}
+		   ],
+		  dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv', title: 'Permission SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'excel', title: 'Permission SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'pdf', title: 'Permission SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'copy'},
+                    {extend: 'csv', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'excel', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'pdf', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
 
                     {extend: 'print',
                      customize: function (win){
                             $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
+                            $(win.document.body).css('font-size', '12px');
 
                             $(win.document.body).find('table')
                                     .addClass('compact')
@@ -227,10 +203,16 @@
                     }
                     }
                 ]
-
-            });
-
         });
+		
+	$('#user').change(function(){
+    dataTable.draw();
+  });
+
+  $('#pname').change(function(){
+    dataTable.draw();
+  });
+     });
 </script>
 <script>
 			function activepermission(uid)	

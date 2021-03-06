@@ -54,10 +54,16 @@
 			position: relative;
 			z-index: 1;
 		}
+		body{
+			background: url(<?=base_url();?>/Uploads/general/login_back.jpg) !important;
+			background-size: cover !important;
+			background-repeat: no-repeat;
+			height: 100vh !important;
+		}
     </style>
 </head>
 <body>				
-	<div class="login-bg" style="background: -webkit-linear-gradient(right, #8021fd, #ff8721, #90c314, #8121ff);">
+	<div class="login-bg">
 
 		<div class="login-box">
 			<div class="login-box-body">
