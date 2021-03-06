@@ -28,7 +28,7 @@
 	}
 	</style>
 	<div class="loader"></div>
-<body onload="setTimeout('startCountDown()',2000);" onmousemove="resetTimer();">
+<body onload="setTimeout('startCountDown()',2000);"">
     <div id="wrapper">
     <?php include_once ('sidemenu.php');?>
 
@@ -57,7 +57,7 @@
                             </div></a>
                         </div>
                     </div>
-					<form name="counter"><input type="text" size="5" name="timer" disabled="disabled" /></form> 
+					
 
                     <div class="col-lg-3">
                         <div class="ibox ">
@@ -821,74 +821,7 @@ return true;
 }
 });
 </script>
-<script type="text/javascript"> 
-<!--   
- // edit startSeconds as you see fit 
- // simple timer example provided by Thomas
 
- var startSeconds = 15;
- var milisec = 0;
- var seconds=startSeconds;
- var countdownrunning = false
- var idle = false;
- document.counter.timer.value=startSeconds;
-
-function CountDown()
-{ 
-    if(idle == true)
-    {
-
-        if (milisec<=0)
-        { 
-            milisec=9 
-            seconds-=1 
-        } 
-        if (seconds<=-1)
-        { 
-            document.location='<?=site_url('admin/logout');?>';
-            milisec=0 
-            seconds+=1 
-            return;
-        } 
-        else 
-        milisec-=1; 
-        document.counter.timer.value=seconds+"."+milisec;
-        setTimeout("CountDown()",100);
-    }
-    else
-    {
-        return;
-    } 
-}
-function startCountDown()
-{
-   document.counter.timer.value=startSeconds;
-   seconds = startSeconds;
-   milisec = 0
-
-   document.counter.timer.style.display = 'block';
-   idle = true;
-   CountDown();
-   document.getElementById("alert").innerHTML = 'You are idle. you will be logged out after ' + startSeconds + ' seconds.';
-   countdownrunning = false;   
-}
-
-function resetTimer()
-{ 
-    document.counter.timer.style.display = 'none';
-    idle = false;    
-    document.getElementById("alert").innerHTML = '';
-
-
-    if(!countdownrunning)
-        setTimeout('startCountDown()',2000);
-
-    countdownrunning = true;
-
-}
-
---> 
-</script>
 						<?php
 					if($this->session->flashdata('message3') != '')
 						{
