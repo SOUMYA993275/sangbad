@@ -62,7 +62,7 @@ class PermissionModel extends CI_Model
 	
 	public function permissionview1()
 	{
-		$this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.cid as cid,user_permission.u_status,users.name');
+		$this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.id as cid,user_permission.u_status,users.name');
 		$this->db->from('permission_group');
 		$this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
 		$this->db->join('permission_category','permission_category.id = user_permission.action_id','LEFT');

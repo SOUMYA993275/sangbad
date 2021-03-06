@@ -105,8 +105,9 @@ class UserPermission extends CI_Controller {
 	public function PermissionList()
 	{
 		$postData = $this->input->post();
-		$data = $this->DataModel->getTab($postData);
-		print json_encode($data);
+		$this->load->model('DataModel');
+		$data = $this->DataModel->getPermission($postData);
+		echo json_encode($data);
 	}
 	
 	public function PermissionView()
@@ -136,7 +137,6 @@ class UserPermission extends CI_Controller {
 					}
 					else
 					{
-						$data['pdetails']=$this->PermissionModel->permissionview1();
 						$data['pgdetails']=$this->PermissionModel->PgroupDetails();
 						$data['userlist']=$this->PermissionModel->Userlist();
 						$this->load->view('backend/user_permission_view',$data);
