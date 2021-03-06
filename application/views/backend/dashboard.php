@@ -26,6 +26,9 @@
 		z-index: 9999;
 		background: url('<?=base_url ();?>Uploads/general/load.gif') 50% 50% no-repeat rgb(249,249,249);
 	}
+	.ibox-content{
+		color :black;
+	}
 	</style>
 	<div class="loader"></div>
 <body onload="setTimeout('startCountDown()',2000);"">
@@ -57,18 +60,23 @@
                             </div></a>
                         </div>
                     </div>
-					
-
-                    <div class="col-lg-3">
+					<div class="col-lg-3">
                         <div class="ibox ">
+						<?php
+						$ncount='';
+						foreach($totalnews as $news)
+						{
+							$ncount = $news->count;
+						}
+						?>
                             <div class="ibox-title">
                                <h1 class="label label-info float-left">Todays News</h1>
                             </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">20 </h1>
+                            <a href="<?=site_url('NewsAuthentication');?>"><div class="ibox-content">
+                                <h1 class="no-margins"><?=$ncount;?> </h1>
                                 <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small><?php echo bn_date(date('l, d M, Y'));?></small>
-                            </div>
+                                <?php echo bn_date(date('l, d M, Y'));?>
+                            </div></a>
                         </div>
                     </div>
                     <div class="col-lg-3">

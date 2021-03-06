@@ -134,6 +134,17 @@ class Adminmodel extends CI_Model
 		$this->db->insert('menumaster',$data);
 	}
 	
+	public function TotalNewsbyDate($date)
+	{
+		$this->db->select('COUNT(*) as count');
+		$this->db->from('newsmaster');
+		$this->db->where('xdelete',0);
+		$this->db->where('nstatus',0);
+		$this->db->where('date',$date);
+		$query = $this->db->get(); 
+		return $result = $query->result();
+	}
+	
 	public function getNewsId()
 	{
 		$this->db->select("MAX(slno) as 'maxid'");
