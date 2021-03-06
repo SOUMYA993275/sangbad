@@ -63,37 +63,46 @@
 							<div class="ibox-content">
 								<div class="col-lg-12">
 									<div class="panel panel-default" style="border: none;">
-										<table>
-										 <tr>
-										   <td>
-											 <select class="form-control" name="user" id="user" required>
-												<option value="">Select User</option>
-													<?php
-													foreach($userlist as $use)
-													{
-													?>
-													<option value="<?=$use->slno;?>"><?=$use->name;?></option>
-													<?php
-													}
-													?>
-											</select>
-										   </td>
-										   <td>
-											<select class="form-control" name="pname" id="pname" required>
-												<option value="">Select Page</option>
-													<?php
-													foreach($pgdetails as $pg)
-													{
-													?>
-													<option value="<?=$pg->id;?>"><?=$pg->page_name;?></option>
-													<?php
-													}
-													?>
-											</select>
-										   </td>
-										 </tr>
-									   </table>
-										
+										<form class="form-horizontal" id="form-filter" name="myForm">
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label>User</label>
+														<select class="form-control" name="user" id="user">
+															<option value="">Select User</option>
+															<?php
+															foreach($userlist as $use)
+															{
+															?>
+															<option value="<?=$use->slno;?>"><?=$use->name;?></option>
+															<?php
+															}
+															?>
+														</select>
+													</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label>Page Name</label>
+														<select class="form-control" name="pname" id="pname">
+															<option value="">Select Page</option>
+															<?php
+															foreach($pgdetails as $pg)
+															{
+															?>
+															<option value="<?=$pg->id;?>"><?=$pg->page_name;?></option>
+															<?php
+															}
+															?>
+														</select>
+													</div>
+												</div>
+												<div class="col-lg-12" style="border-top: none; text-align: center;">
+													<button type="button" id="btn-filter" class="btn btn-warning">Reset</button>
+													<button type="button" id="btn-reset" class="btn btn-success">Filter</button>
+												</div>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -148,18 +157,22 @@
 	<script src="<?=base_url();?>js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
    <script>
+   var table;
   $(document).ready(function(){
-		$('.dataTables-example').DataTable({
+	table = $('.dataTables-example').DataTable({
           'processing': true,
           'serverSide': true,
 		  "searching": false,
           'serverMethod': 'post',
-          'ajax': {
-             'url':'<?=base_url()?>index.php/UserPermission/PermissionList'
-          },
-		  
-          'columns': [
-             //{ data: null render: function ( data, type, row, meta ) { return  data.meta+1; } },
+          "ajax": {
+            "url": "<?=site_url('UserPermission/PermissionList')?>",
+            "type": "POST",
+            "data": function ( data ) {
+                data.uid = $('#user').val();
+                data.piid = $('#pname').val();
+			}
+		  },
+		  'columns': [
              { data: 'uid' },
              { data: 'uname' },
              { data: 'pname' },
@@ -167,8 +180,8 @@
              { data: 'status' },
              { data: null, render: function(data, type, full, meta) {
 				switch(full.status) {
-					   case '0' : return '<button onclick="inactivepermission(' + full.uid + ')" title="Inactive Tab" class="btn btn-warning fa fa-check-circle-o"></button>'; break;
-					   case '1' : return '<button onclick="activepermission(' + full.uid + ')" title="Active Tab" class="btn btn-primary fa fa-check-circle-o"></button>'; break;
+					   case '0' : return '<button onclick="inactivepermission(' + full.uid + ')" title="Inactive User Permission" class="btn btn-warning fa fa-check-circle-o"></button>'; break;
+					   case '1' : return '<button onclick="activepermission(' + full.uid + ')" title="Active User Permission" class="btn btn-primary fa fa-check-circle-o"></button>'; break;
 					   default  : return 'N/A';
 					}
 				} 
@@ -188,9 +201,9 @@
 		  dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     {extend: 'copy'},
-                    {extend: 'csv', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'excel', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'pdf', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'csv', title: 'User Permission SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'excel', title: 'User Permission SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'pdf', title: 'User Permission SNRD <?php echo date("Y-m-d h-i a");?>'},
 
                     {extend: 'print',
                      customize: function (win){
@@ -205,13 +218,13 @@
                 ]
         });
 		
-	$('#user').change(function(){
-    dataTable.draw();
-  });
-
-  $('#pname').change(function(){
-    dataTable.draw();
-  });
+	$('#btn-filter').click(function(){ //button filter event click
+        table.ajax.reload(null,false);  //just reload table
+    });
+    $('#btn-reset').click(function(){ //button reset event click
+        $('#form-filter')[0].reset();
+        table.ajax.reload(null,false);  //just reload table
+    });
      });
 </script>
 <script>

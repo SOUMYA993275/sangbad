@@ -2,11 +2,7 @@
 	<nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" action="search_results.html">
-                <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div>
-            </form>
+            <form name="counter"><input type="text" size="5" name="timer" disabled="disabled" /></form> 
         </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li>
@@ -139,3 +135,57 @@
             </ul>
 
         </nav>
+<script type="text/javascript"> 
+<!--   
+ // edit startSeconds as you see fit 
+ // simple timer example provided by Thomas
+
+ var startSeconds = 7200;
+ var milisec = 0;
+ var seconds=startSeconds;
+ var countdownrunning = true
+ var idle = true;
+ document.counter.timer.value=startSeconds;
+
+function CountDown()
+{ 
+    if(idle == true)
+    {
+
+        if (milisec<=0)
+        { 
+            milisec=9 
+            seconds-=1 
+        } 
+        if (seconds<=-1)
+        { 
+            document.location='<?=site_url('admin/logout');?>';
+            milisec=0 
+            seconds+=1 
+            return;
+        } 
+        else 
+        milisec-=1; 
+        document.counter.timer.value=seconds+"."+milisec;
+        setTimeout("CountDown()",100);
+    }
+    else
+    {
+        return;
+    } 
+}
+function startCountDown()
+{
+   document.counter.timer.value=startSeconds;
+   seconds = startSeconds;
+   milisec = 0
+
+   document.counter.timer.style.display = 'block';
+   idle = true;
+   CountDown();
+   document.getElementById("alert").innerHTML = 'You are idle. you will be logged out after ' + startSeconds + ' seconds.';
+   countdownrunning = false;   
+}
+
+--> 
+</script>
