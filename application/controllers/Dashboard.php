@@ -29,7 +29,9 @@ class Dashboard extends CI_Controller {
 				$Dashboard = $this->PermissionModel->Dashboard($userid);
 				if($Dashboard->u_status == '0')
 				{
+					$date = date('m/d/Y');
 					$data['totaluser'] = $this->Adminmodel->TotalUser();
+					$data['totalnews'] = $this->Adminmodel->TotalNewsbyDate($date);
 					//print_r($data);
 					//exit;
 					$this->load->view('backend/dashboard',$data);
