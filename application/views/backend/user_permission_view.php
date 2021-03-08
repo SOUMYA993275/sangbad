@@ -173,9 +173,18 @@
 			}
 		},
 		  'columns': [
-             { data: 'uid' },
-             { data: 'uname' },
-             { data: 'pname' },
+             {
+				"data": "uid",
+				render: function (data, type, row, meta) {
+					return meta.row + meta.settings._iDisplayStart + 1;
+				}
+			 },
+			 { "mData": function (data, type, dataToSet) {
+					return data.uname +  "&nbsp" + "(" + data.uiid + ")";
+				}},
+             { "mData": function (data, type, dataToSet) {
+					return data.pname +  "&nbsp" + "(" + data.piid + ")";
+				}},
              { data: 'category' },
              { data: 'status' },
              { data: null, render: function(data, type, full, meta) {

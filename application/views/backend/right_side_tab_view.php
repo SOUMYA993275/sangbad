@@ -145,7 +145,7 @@
 			 }
           ],
 		  columnDefs : [
-				{ targets : [6],
+				{ targets : [7],
 				  render : function (data, type, row) {
 					switch(data) {
 					   case 'Active' : return '<img src="<?=base_url();?>/Uploads/general/active.gif" title="Active"/>'; break;
