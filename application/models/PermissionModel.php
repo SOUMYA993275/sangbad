@@ -21,6 +21,15 @@ class PermissionModel extends CI_Model
 	  return $result = $query->result();
 	}
 	
+	function fetch_page($id)
+	{
+      $this->db->select('role_wise_permission.id as rid,permission_group.page_name as pname');
+      $this->db->join('permission_group','role_wise_permission.page_id = permission_group.id','LEFT');
+	  $this->db->where('role_wise_permission.role', $id);
+	  $query = $this->db->get('role_wise_permission');
+	  return $result = $query->result();
+	}
+	
 	public function Pcategory()
 	{
 		$this->db->select('*');
@@ -34,39 +43,6 @@ class PermissionModel extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('permission_group');
-		$query = $this->db->get(); 
-		return $result = $query->result();
-	}
-	
-	public function Pcategorydetails()
-	{
-		$this->db->select('permission_group.page_name,permission_category.category');
-		$this->db->from('permission_category');
-		$this->db->join('permission_group','permission_group.id = permission_category.page_id','LEFT');
-		$query = $this->db->get(); 
-		return $result = $query->result();
-	}
-	
-	public function permissionview($user,$pname)
-	{
-		$this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.id as cid,user_permission.u_status,users.name');
-		$this->db->from('permission_group');
-		$this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
-		$this->db->join('permission_category','permission_category.id = user_permission.action_id','LEFT');
-		$this->db->join('users','users.slno = user_permission.user_id','LEFT');
-		$this->db->where('users.slno',$user);
-		$this->db->where('permission_group.id',$pname);
-		$query = $this->db->get(); 
-		return $result = $query->result();
-	}
-	
-	public function permissionview1()
-	{
-		$this->db->select('user_permission.id,permission_group.page_name,permission_group.id as pid,permission_category.category,permission_category.id as cid,user_permission.u_status,users.name');
-		$this->db->from('permission_group');
-		$this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
-		$this->db->join('permission_category','permission_category.id = user_permission.action_id','LEFT');
-		$this->db->join('users','users.slno = user_permission.user_id','LEFT');
 		$query = $this->db->get(); 
 		return $result = $query->result();
 	}
@@ -106,6 +82,22 @@ class PermissionModel extends CI_Model
 		$this->db->where('page_id',$pname);
 		$query = $this->db->get(); 
 		return $result = $query->result();
+	}
+	
+	public function UserCheckcategory($role,$page)
+	{
+		$this->db->select('*');
+		$this->db->from('role_wise_permission');
+		$this->db->where('role',$role);
+		$this->db->where('page_id',$page);
+		$query = $this->db->get(); 
+		return $result = $query->result();
+	}
+	
+	public function InsertPermissionUser($data)
+	{
+		$this->db->set('doc','NOW()', FALSE);
+		$this->db->insert('role_wise_permission',$data);
 	}
 	
 	public function InsertPermission($data)

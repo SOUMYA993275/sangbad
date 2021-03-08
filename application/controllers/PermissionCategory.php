@@ -31,7 +31,6 @@ class PermissionCategory extends CI_Controller {
 				$UserPermission = $this->PermissionModel->UserPermission($userid);
 				if($UserPermission->u_status == '0')
 				{
-					$data['pdetails']=$this->PermissionModel->Pcategorydetails();
 					$data['pgdetails']=$this->PermissionModel->PgroupDetails();
 					$this->load->view('backend/permission_category',$data);
 				}
@@ -109,6 +108,13 @@ class PermissionCategory extends CI_Controller {
 		}
 	}
 	
+	public function PermissionCategoryList()
+	{
+		$postData = $this->input->post();
+		$this->load->model('DataModel');
+		$data = $this->DataModel->getPcategory($postData);
+		echo json_encode($data);
+	}
 	
 }
 ?>

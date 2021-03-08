@@ -218,4 +218,129 @@ class DataModel extends CI_Model
 		 return $response; 
 	}
 	
+	function getPcategory($postData=null)
+	{
+
+		 $response = array();
+
+		 ## Read value
+		 $draw = $postData['draw'];
+		 $start = $postData['start'];
+		 $rowperpage = $postData['length']; // Rows display per page
+		 $columnIndex = $postData['order'][0]['column']; // Column index
+		 $columnName = $postData['columns'][$columnIndex]['data']; // Column name
+		 $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+		 $searchValue = $postData['search']['value']; // Search value
+
+		 ## Search 
+		 $searchQuery = "";
+		 if($searchValue != ''){
+			$searchQuery = " (permission_category.category like '%".$searchValue."%') ";
+		 }
+
+		 ## Total number of records without filtering
+		 $this->db->select('count(*) as allcount');
+		 $records = $this->db->get('permission_category')->result();
+		 $totalRecords = $records[0]->allcount;
+
+		 ## Total number of record with filtering
+		 $this->db->select('count(*) as allcount');
+		 if($searchQuery != '')
+		 $this->db->where($searchQuery);
+		 $records = $this->db->get('permission_category')->result();
+		 $totalRecordwithFilter = $records[0]->allcount;
+
+		 ## Fetch records
+		 $this->db->select('permission_group.page_name as pname,permission_category.category as pcat,permission_category.id as pid');
+		 $this->db->join('permission_group','permission_group.id = permission_category.page_id','LEFT');
+		 if($searchQuery != '')
+		 $this->db->where($searchQuery);
+		 $this->db->order_by($columnName, $columnSortOrder);
+		 $this->db->limit($rowperpage, $start);
+		 $records = $this->db->get('permission_category')->result();
+		 $data = array();
+
+		 foreach($records as $record ){
+
+			$data[] = array( 
+			   "pname"=>$record->pname,
+			   "pcat"=>$record->pcat,
+			   "pid"=>$record->pid,
+			); 
+		 }
+
+		 ## Response
+		 $response = array(
+			"draw" => intval($draw),
+			"iTotalRecords" => $totalRecords,
+			"iTotalDisplayRecords" => $totalRecordwithFilter,
+			"aaData" => $data
+		 );
+
+		 return $response; 
+	}
+	
+	function getRolecategory($postData=null)
+	{
+
+		 $response = array();
+
+		 ## Read value
+		 $draw = $postData['draw'];
+		 $start = $postData['start'];
+		 $rowperpage = $postData['length']; // Rows display per page
+		 $columnIndex = $postData['order'][0]['column']; // Column index
+		 $columnName = $postData['columns'][$columnIndex]['data']; // Column name
+		 $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+		 $searchValue = $postData['search']['value']; // Search value
+
+		 ## Search 
+		 $searchQuery = "";
+		 if($searchValue != ''){
+			$searchQuery = " (role_wise_permission.role like '%".$searchValue."%') ";
+		 }
+
+		 ## Total number of records without filtering
+		 $this->db->select('count(*) as allcount');
+		 $records = $this->db->get('role_wise_permission')->result();
+		 $totalRecords = $records[0]->allcount;
+
+		 ## Total number of record with filtering
+		 $this->db->select('count(*) as allcount');
+		 if($searchQuery != '')
+		 $this->db->where($searchQuery);
+		 $records = $this->db->get('role_wise_permission')->result();
+		 $totalRecordwithFilter = $records[0]->allcount;
+
+		 ## Fetch records
+		 $this->db->select('role_wise_permission.role as role,role_wise_permission.status as rstatus,permission_group.page_name as pname,role_wise_permission.id as rid');
+		 $this->db->join('permission_group','permission_group.id = role_wise_permission.page_id','LEFT');
+		 if($searchQuery != '')
+		 $this->db->where($searchQuery);
+		 $this->db->order_by($columnName, $columnSortOrder);
+		 $this->db->limit($rowperpage, $start);
+		 $records = $this->db->get('role_wise_permission')->result();
+		 $data = array();
+
+		 foreach($records as $record ){
+
+			$data[] = array( 
+			   "role"=>$record->role,
+			   "pname"=>$record->pname,
+			   "rid"=>$record->rid,
+			   "rstatus"=>$record->rstatus,
+			); 
+		 }
+
+		 ## Response
+		 $response = array(
+			"draw" => intval($draw),
+			"iTotalRecords" => $totalRecords,
+			"iTotalDisplayRecords" => $totalRecordwithFilter,
+			"aaData" => $data
+		 );
+
+		 return $response; 
+	}
+	
 }

@@ -101,14 +101,7 @@
 														<label>Page</label>
 														<select class="form-control" name="pagen" id="paged" required>
 															<option value="">Select Page</option>
-															<?php
-															foreach ($pcategory as $pct)
-															{
-															?>
-															<option value="<?=$pct->id;?>"><?=$pct->page_name;?></option>
-															<?php
-															}
-															?>
+															
 														</select>
 													</div>
 												</div>
@@ -150,40 +143,7 @@
      $('.loader').fadeOut();
 	});
 	</script>
-	<script>
-	$(document).on('change', 'select#role', function (e) {
-    e.preventDefault();
-    var userID = $(this).val();
-    getUserList(userID);
-	});
-	function getUserList(userID) {
-    $.ajax({
-        url: '<?php echo site_url('UserPermission/fetch_user'); ?>',
-        type: 'post',
-        data: {userID: userID},
-        dataType: 'json',
-        beforeSend: function () {
-            $('select#user').find("option:eq(0)").html("Please wait..");
-        },
-        complete: function () {
-            // code
-        },
-        success: function (json) {
-            var options = '';
-            options +='<option value="">Select User</option>';
-            for (var i = 0; i < json.length; i++) {
-                options += '<option value="' + json[i].slno + '">' + json[i].name + '</option>';
-            }
-            $("select#user").html(options);
- 
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-}
-	</script>
-	<script>
+<script>
 	$(document).ready(function(){
 		$('select#paged').change(function(){ 
                 var pageID=$(this).val();
@@ -201,6 +161,50 @@
                             html += '<option value='+data[i].cid+'>'+data[i].category+'</option>';
                         }
                         $('select#catgorys').html(html);
+ 
+                    }
+                });
+                return false;
+            }); 
+             
+        });
+	</script>
+	<script>
+	$(document).ready(function(){
+		$('select#role').change(function(){ 
+                var userID=$(this).val();
+                $.ajax({
+                    url : "<?php echo site_url('UserPermission/fetch_page');?>",
+                    method : "POST",
+                    data : {userID: userID},
+                    async : true,
+                    dataType : 'json',
+                    success: function(data){
+                         
+                        var html = '';
+						var i;
+                        for(i=0; i < data.length; i++)
+						{
+                            html += '<option value='+data[i].rid+'>'+data[i].pname+'</option>';
+                        }
+                        $('select#paged').html(html);
+ 
+                    }
+                });
+				$.ajax({
+                    url : "<?php echo site_url('UserPermission/fetch_user');?>",
+                    method : "POST",
+                    data : {userID: userID},
+                    async : true,
+                    dataType : 'json',
+                    success: function(data){
+                         
+                        var html = '';
+						var i;
+                        for(i=0; i < data.length; i++){
+                            html += '<option value='+data[i].slno+'>'+data[i].name+'</option>';
+                        }
+                        $('select#user').html(html);
  
                     }
                 });

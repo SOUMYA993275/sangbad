@@ -60,7 +60,7 @@
 					<div class="col-lg-12">
 						<div class="ibox ">
 							<div class="ibox-title">
-								<h5>Add Permission</h5>
+								<h5>Add Role Permission</h5>
 								<div class="ibox-tools">
 									<a class="collapse-link">
 										<i class="fa fa-chevron-up"></i>
@@ -70,34 +70,31 @@
 							<div class="ibox-content">
 								<div class="col-lg-12">
 									<div class="panel panel-default" style="border: none;">
-										<form class="form-horizontal" role="form" name="myForm" method="POST" action="<?=site_url('PermissionCategory/InsertPermission');?>">
+										<form class="form-horizontal" role="form" name="myForm" method="POST" action="<?=site_url('PermissionCategoryAssign/InsertPermission');?>">
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="form-group">
-														<label>Page Name</label>
-														<select class="form-control" name="pname" id="pname" required>
-															<option value="">Select Page</option>
-															<?php
-															foreach($pgdetails as $pg)
-															{
-															?>
-															<option value="<?=$pg->id;?>"><?=$pg->page_name;?></option>
-															<?php
-															}
-															?>
+														<label>Role Name</label>
+														<select class="form-control" name="role" id="role" required>
+															<option value="">Select Role</option>
+															<option value="ADMIN">Admin</option>
+															<option value="MANAGER">Manager</option>
+															<option value="USER">User</option>
 														</select>
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
-														<label>Category</label>
-														<select data-placeholder="Choose Category" name="category[]" class="chosen-select" multiple style="width:350px;" tabindex="4" id="category" required>
-															<option value="Add">Add</option>
-															<option value="Edit">Edit</option>
-															<option value="View">View</option>
-															<option value="Delete">Delete</option>
-															<option value="Active">Active</option>
-															<option value="Inactive">Inactive</option>
+														<label>Page</label>
+														<select data-placeholder="Choose Page" name="page[]" class="chosen-select" multiple style="width:350px;" tabindex="4" id="page" required>
+															<?php
+															foreach ($pcategory as $pct)
+															{
+															?>
+															<option value="<?=$pct->id;?>"><?=$pct->page_name;?></option>
+															<?php
+															}
+															?>
 														</select>
 													</div>
 												</div>
@@ -115,7 +112,7 @@
 					<div class="col-lg-12">
 						<div class="ibox ">
 							<div class="ibox-title">
-								<h5>Permission Details</h5>
+								<h5>Role Permission Details</h5>
 									<div class="ibox-tools">
 										<a class="collapse-link">
 											<i class="fa fa-chevron-up"></i>
@@ -130,6 +127,8 @@
 										<th>Sl No</th>
 										<th>Page Name</th>
 										<th>Page Category</th>
+										<th>Status</th>
+										<th>Action</th>
 									</tr>
 									</thead>
 									</table>
@@ -169,24 +168,44 @@
           'serverSide': true,
           'serverMethod': 'post',
           'ajax': {
-             'url':'<?=base_url()?>/PermissionCategory/PermissionCategoryList'
+             'url':'<?=base_url()?>/PermissionCategoryAssign/RollList'
           },
           'columns': [
 			 {
-				"data": "pid",
+				"data": "rid",
 				render: function (data, type, row, meta) {
 					return meta.row + meta.settings._iDisplayStart + 1;
 				}
 			 },
+             { data: 'role' },
              { data: 'pname' },
-             { data: 'pcat' },
+			 { data: 'rstatus' },
+             { data: null, render: function(data, type, full, meta) {
+				switch(full.rstatus) {
+					   case '0' : return '<button onclick="inactiverole(' + full.rid + ')" title="Inactive Role Permission" class="btn btn-warning fa fa-check-circle-o"></button>'; break;
+					   case '1' : return '<button onclick="activerole(' + full.rid + ')" title="Active Role Permission" class="btn btn-primary fa fa-check-circle-o"></button>'; break;
+					   default  : return 'N/A';
+					}
+				} 
+			 }
           ],
+		  columnDefs : [
+				{ targets : [3],
+				  render : function (data, type, row) {
+					switch(data) {
+					   case '0' : return '<img src="<?=base_url();?>/Uploads/general/active.gif" title="Active"/>'; break;
+					   case '1' : return '<img src="<?=base_url();?>/Uploads/general/inactive.gif" title="Inactive">'; break;
+					   default  : return 'N/A';
+					}
+				  }
+				}
+		   ],
 		 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     {extend: 'copy'},
-                    {extend: 'csv', title: 'Permission Category SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'excel', title: 'Permission Category SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'pdf', title: 'Permission Category SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'csv', title: 'Role Category SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'excel', title: 'Role Category SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'pdf', title: 'Role Category SNRD <?php echo date("Y-m-d h-i a");?>'},
 
                     {extend: 'print',
                      customize: function (win){
@@ -202,6 +221,59 @@
         });
      });
     </script>
+<script>
+			function activerole(uid)	
+			{		
+				swal({
+                  title: "Are you sure do you want to Active this Permission?",
+            		text: "",
+            		icon: "info",
+            		buttons: true,
+            		dangerMode: true,
+            	})
+            	.then((willActive) => {
+            		if (willActive) {	
+                        $.ajax({
+						url: "<?php echo site_url(); ?>/PermissionCategoryAssign/ActiveRole/",
+						data: {'search_data' : uid},
+						type: "post",
+						success: function()
+						{
+							window.location.reload(true);
+						}
+					});
+            		} else {
+            			
+            		}
+            	});	
+			}	
+			
+			function inactiverole(uid)	
+			{	
+				swal({
+                  title: "Are you sure do you want to Inactive this Role?",
+            		text: "",
+            		icon: "info",
+            		buttons: true,
+            		dangerMode: true,
+            	})
+            	.then((willInactive) => {
+            		if (willInactive) {	
+                        $.ajax({
+						url: "<?php echo site_url(); ?>/PermissionCategoryAssign/InctiveRole/",
+						data: {'search_data' : uid},
+						type: "post",
+						success: function()
+						{
+							window.location.reload(true);
+						}
+					});
+            		} else {
+            			
+            		}
+            	});
+			}
+	</script>
 	<?php
 					if($this->session->flashdata('message1') != '')
 						{
@@ -209,7 +281,7 @@
 						<script>
 							swal({
 							  title: "Success",
-							  text: "Category Created Successfully",
+							  text: "User Permission Created Successfully",
 							  icon: "success",
 							  button: false,
 							  timer: "1500",
@@ -225,8 +297,24 @@
 						<script>
 							swal({
 							  title: "Oops!",
-							  text: "Category Already Exist",
+							  text: "User Permission Already Exist",
 							  icon: "error",
+							  button: false,
+							  timer: "1500",
+							});
+							</script>
+					<?php
+						}
+					?>
+					<?php
+					if($this->session->flashdata('message') != '')
+						{
+					?>
+						<script>
+							swal({
+							  title: "Success",
+							  text: "Role Status Changed Successfully",
+							  icon: "success",
 							  button: false,
 							  timer: "1500",
 							});

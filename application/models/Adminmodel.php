@@ -202,6 +202,13 @@ class Adminmodel extends CI_Model
 		$this->db->update('user_permission',$data);
 	}
 	
+	public function UpdateRoleDetails($data,$id)
+	{
+		$this->db->set('dom','NOW()', FALSE);
+		$this->db->where('id',$id);
+		$this->db->update('role_wise_permission',$data);
+	}
+	
 	
 	public function Checktabcode($tabcode)
 	{

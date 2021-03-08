@@ -156,7 +156,11 @@ function bn_date($str)
                 <li>
                     <a href="#"><i class="fa fa-check-square"></i> <span class="nav-label">Permission</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="<?=site_url('PermissionCategory');?>"><i class="fa fa-list-ul"></i>Permission Category</a></li>
+                        <li><a href="#"><i class="fa fa-check"></i><span class="nav-label">Permission Category</span><span class="fa arrow"></span></a>
+						<ul class="nav nav-third-level collapse">
+								<li><a href="<?=site_url('PermissionCategory');?>"><i class="fa fa-plus"></i> <span class="nav-label">Add Permission Category</span></a></li>
+								<li><a href="<?=site_url('PermissionCategoryAssign');?>"><i class="fa fa-list"></i>Assign Permission Category</a></li>
+							</ul>
                         <li><a href="#"><i class="fa fa-check"></i><span class="nav-label">User Permission</span><span class="fa arrow"></span></a>
 							<ul class="nav nav-third-level collapse">
 								<li><a href="<?=site_url('UserPermission');?>"><i class="fa fa-plus"></i> <span class="nav-label">Add Permission</span></a></li>

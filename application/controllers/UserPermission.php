@@ -102,11 +102,17 @@ class UserPermission extends CI_Controller {
 		echo json_encode($data);
 	}
 	
+	public function fetch_page()
+	{ 
+		$id = $this->input->post('userID');
+		$this->load->model('PermissionModel');
+		$data = $this->PermissionModel->fetch_page($id);
+		echo json_encode($data);
+	}
+	
 	public function PermissionList()
 	{
 		$postData = $this->input->post();
-		//print_r($postData);
-		//exit;
 		$this->load->model('DataModel');
 		$data = $this->DataModel->getPermission($postData);
 		echo json_encode($data);
