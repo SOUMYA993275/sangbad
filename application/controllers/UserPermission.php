@@ -105,6 +105,8 @@ class UserPermission extends CI_Controller {
 	public function PermissionList()
 	{
 		$postData = $this->input->post();
+		//print_r($postData);
+		//exit;
 		$this->load->model('DataModel');
 		$data = $this->DataModel->getPermission($postData);
 		echo json_encode($data);

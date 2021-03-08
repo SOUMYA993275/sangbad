@@ -67,6 +67,7 @@
 									<table class="table table-striped table-bordered table-hover dataTables-example" >
 										<thead>
 											<tr>
+												<th>Sl No</th>
 												<th>Tab Name</th>
 												<th>Tab Code</th>
 												<th>Tab Link</th>
@@ -117,6 +118,12 @@
              'url':'<?=base_url()?>index.php/RightsideTab/tabList'
           },
           'columns': [
+			 {
+				"data": "slno",
+				render: function (data, type, row, meta) {
+					return meta.row + meta.settings._iDisplayStart + 1;
+				}
+			 },
              { data: 'tabname' },
              { data: 'tabcode' },
              { data: 'tablink' },
