@@ -98,8 +98,8 @@
 													</div>
 												</div>
 												<div class="col-lg-12" style="border-top: none; text-align: center;">
-													<button type="button" id="btn-filter" class="btn btn-warning">Reset</button>
-													<button type="button" id="btn-reset" class="btn btn-success">Filter</button>
+													<button type="button" id="btn-reset" class="btn btn-warning">Reset</button>
+													<button type="button" id="btn-filter" class="btn btn-success">Filter</button>
 												</div>
 											</div>
 										</form>
@@ -168,10 +168,10 @@
             "url": "<?=site_url('UserPermission/PermissionList')?>",
             "type": "POST",
             "data": function ( data ) {
-                data.uid = $('#user').val();
+                data.uiid = $('#user').val();
                 data.piid = $('#pname').val();
 			}
-		  },
+		},
 		  'columns': [
              { data: 'uid' },
              { data: 'uname' },

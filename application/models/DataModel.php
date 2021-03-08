@@ -151,13 +151,8 @@ class DataModel extends CI_Model
 		 $columnName = $postData['columns'][$columnIndex]['data']; // Column name
 		 $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
 		 $searchValue = $postData['search']['value']; // Search value
-		 
-
-		## Search 
-		 $searchQuery = "";
-		 if($searchValue != ''){
-			$searchQuery = " (tabname like '%".$searchValue."%' or tabcode like '%".$searchValue."%' or tablink like'%".$searchValue."%' ) ";
-		 }
+		 $user = $postData['uiid']; // Search value
+		 $pname = $postData['piid']; // Search value
 		 
 		 ## Total number of records without filtering
 		 $this->db->select('count(*) as allcount');
@@ -166,29 +161,29 @@ class DataModel extends CI_Model
 
 		## Total number of record with filtering
 		 $this->db->select('count(*) as allcount');
-		 if($this->input->post('user'))
+		 if($user!= '')
         {
-            $this->db->where('user_permission.id', $this->input->post('user'));
+            $this->db->where('user_permission.user_id', $user);
         }
-		if($this->input->post('pname'))
+		if($pname!='')
         {
-            $this->db->where('user_permission.page_id', $this->input->post('pname'));
+            $this->db->where('user_permission.page_id', $pname);
         }
 		 $records = $this->db->get('user_permission')->result();
 		 $totalRecordwithFilter = $records[0]->allcount;
 		 
 		 ## Fetch records
-		 $this->db->select('user_permission.id as uid,user_permission.page_id as piid,permission_group.page_name as pname,permission_group.id as pid,permission_category.category as category,permission_category.id as cid,user_permission.u_status as status,users.name as uname');
+		 $this->db->select('user_permission.id as uid,user_permission.page_id as piid,permission_group.page_name as pname,permission_group.id as pid,permission_category.category as category,permission_category.id as cid,user_permission.u_status as status,users.name as uname,users.slno as uiid');
 		 $this->db->join('user_permission','permission_group.id = user_permission.page_id','RIGHT');
 		 $this->db->join('permission_category','permission_category.id = user_permission.action_id','LEFT');
 		 $this->db->join('users','users.slno = user_permission.user_id','LEFT');
-		 if($this->input->post('user'))
+		 if($user!= '')
         {
-            $this->db->where('user_permission.id', $this->input->post('user'));
+            $this->db->where('user_permission.user_id', $user);
         }
-		if($this->input->post('pname'))
+		if($pname!='')
         {
-            $this->db->where('user_permission.page_id', $this->input->post('pname'));
+            $this->db->where('user_permission.page_id', $pname);
         }
 		 $this->db->order_by($columnName, $columnSortOrder);
 		 $this->db->limit($rowperpage, $start);
@@ -208,6 +203,7 @@ class DataModel extends CI_Model
 			   "cid"=>$record->cid,
 			   "status"=>$record->status,
 			   "uname"=>$record->uname,
+			   "uiid"=>$record->uiid,
 			); 
 		 }
 
