@@ -26,6 +26,7 @@ class PermissionModel extends CI_Model
       $this->db->select('role_wise_permission.id as rid,permission_group.page_name as pname');
       $this->db->join('permission_group','role_wise_permission.page_id = permission_group.id','LEFT');
 	  $this->db->where('role_wise_permission.role', $id);
+	  $this->db->where('role_wise_permission.status', 0);
 	  $query = $this->db->get('role_wise_permission');
 	  return $result = $query->result();
 	}
