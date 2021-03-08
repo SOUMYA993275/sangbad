@@ -128,6 +128,7 @@
 									<table class="table table-striped table-bordered table-hover dataTables-example">
 									<thead>
 									<tr>
+										<th>Sl No</th>
 										<th>Menu Name</th>
 										<th>Menu Code</th>
 										<th>Menu Link</th>
@@ -175,6 +176,12 @@
              'url':'<?=base_url()?>index.php/Menumanagement/menuList'
           },
           'columns': [
+			 {
+				"data": "id",
+				render: function (data, type, row, meta) {
+					return meta.row + meta.settings._iDisplayStart + 1;
+				}
+			 },
              { data: 'menuname' },
              { data: 'menucode' },
              { data: 'menulink' },
@@ -189,7 +196,7 @@
 			 }
           ],
 		  columnDefs : [
-				{ targets : [3],
+				{ targets : [4],
 				  render : function (data, type, row) {
 					switch(data) {
 					   case 'Active' : return '<img src="<?=base_url();?>/Uploads/general/active.gif" title="Active"/>'; break;
