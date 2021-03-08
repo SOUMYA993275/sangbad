@@ -234,7 +234,7 @@
             	.then((willActive) => {
             		if (willActive) {	
                         $.ajax({
-						url: "<?php echo site_url(); ?>/PermissionCategoryAssign/ActiveRole/",
+						url: "<?php echo site_url(); ?>/PermissionCategoryAssign/ActiveRole",
 						data: {'search_data' : uid},
 						type: "post",
 						success: function()
@@ -260,7 +260,7 @@
             	.then((willInactive) => {
             		if (willInactive) {	
                         $.ajax({
-						url: "<?php echo site_url(); ?>/PermissionCategoryAssign/InctiveRole/",
+						url: "<?php echo site_url(); ?>/PermissionCategoryAssign/InctiveRole",
 						data: {'search_data' : uid},
 						type: "post",
 						success: function()
