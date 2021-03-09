@@ -17,10 +17,10 @@ class Adminmodel extends CI_Model
 	
 	
 	
-	public function LastLoginTimeUpdate($id,$datetime)
+	public function LastLoginTimeUpdate($id)
 	{
 		$this->db->where('slno',$id);
-		$this->db->set('lastlogintime', $datetime);
+		$this->db->set('lastlogintime', 'NOW()', FALSE);
 		$this->db->update('users');
 	}
 	

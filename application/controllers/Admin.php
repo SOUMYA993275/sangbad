@@ -89,7 +89,7 @@ class Admin extends CI_Controller {
 									'menu_name'=>$menu_name,
 									'image'=>$image,
 								);
-								$datetime = date('Y-m-d h:i:s a', time());
+								$datetime = date('Y-m-d h:i:s');
 								$this->session->set_userdata($data);
 								$userid = $this->session->userdata('slno');
 								$name = $this->session->userdata('name');
@@ -105,7 +105,7 @@ class Admin extends CI_Controller {
 								$u_status = $this->session->userdata('u_status');
 								$image = $this->session->userdata('image');
 								$ltdate= $this->session->userdata('lastlogintime');
-								$this->Adminmodel->LastLoginTimeUpdate($id,$datetime);
+								$this->Adminmodel->LastLoginTimeUpdate($id);
 								$this->session->set_flashdata('message3','message3');
 								redirect("Dashboard");
 							}
