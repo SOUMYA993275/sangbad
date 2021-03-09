@@ -75,64 +75,9 @@
 										<th>Upload By</th>
 										<th>Modified By</th>
 										<th>Status</th>
-										<th>Action</th>
+										<th style="width: 160px;">Action</th>
 									</tr>
 									</thead>
-									<tbody>
-									<?php  
-											$i=0;
-											foreach($adddetails as $mn)
-											{
-												$i++;
-											?>
-											<tr class="gradeC">
-												<td><?=$i;?></td>
-												<td><img src="<?=base_url($mn->image);?>" width="170px" height="130px"></td>
-												<td><?=$mn->givenby;?></td>
-												<td><?=$mn->position;?></td>
-												<td class="center"><?=$mn->description;?></td>
-												<td class="center"><?=$mn->createdby;?></td>
-												<td class="center"><?=$mn->updatedby;?></td>
-												<td class="center">
-												<?php
-												if($mn->status=='Inactive')
-												{
-												?>
-												<img src='<?=base_url();?>Uploads/general/inactive.gif' title="Inactive">
-												<?php
-												}
-												else if($mn->status=='Active')
-												{
-												?>
-												<img src='<?=base_url();?>Uploads/general/active.gif' title="Active">
-											   <?php
-												}
-												?>
-										</td>
-										<td class="center" style="width: 160px;">
-										<?php
-												if($mn->status=='Inactive') 
-												{ 
-												?>
-													<button onclick="activeadvertisement('<?=$mn->slno;?>')" type="button" title="Active Advertisement" class="btn btn-success fa fa-check-circle-o"></button>
-												<?php
-													} 
-													else if($mn->status=='Active')
-													{ 
-												?>
-													<button onclick="inactiveadvertisement('<?=$mn->slno;?>')" type="button" title="Inactive Advertisement" class="btn btn-warning fa fa-check-circle-o"></button>
-												<?php
-													} 
-												?>
-												<button onclick="editadvertisement('<?=$mn->slno;?>')" type="button" title="Edit Advertisement" class="btn btn-info fa fa-pencil"></button>
-												<button onclick="deleteadvertisement('<?=$mn->slno;?>')" type="button" title="Delete Advertisement" class="btn btn-danger fa fa-trash"></button>
-												<a href="<?=$mn->url;?>" target="blank"><button  type="button" title="View Advertisement" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>
-										</td>
-									</tr>
-									<?php
-									}
-									?>
-									</tbody>
 									</table>
 								</div>
 							</div>
@@ -165,22 +110,69 @@
    <script src="<?=base_url();?>js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>  
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-			
-		$(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                pageLength: 10,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
+$(document).ready(function(){
+		$('.dataTables-example').DataTable({
+          'processing': true,
+          'serverSide': true,
+          'serverMethod': 'post',
+		  beforeSend: function(){
+			$('.loader').css("visibility", "visible");
+		  },
+          'ajax': {
+             'url':'<?=base_url()?>index.php/Advertise/advertiseList'
+          },
+		  complete: function(){
+			$('.loader').css("visibility", "hidden");
+		  },
+          'columns': [
+			 {
+				"data": "slno",
+				render: function (data, type, row, meta) {
+					return meta.row + meta.settings._iDisplayStart + 1;
+				}
+			 },
+			 {
+                "render": function (data, type, full, meta) {
+                return '<img src="<?=base_url();?>/' + full.image + '" width="170px" height="110px">';
+                }
+             },
+             { data: 'givenby' },
+             { data: 'position' },
+             { data: 'description' },
+             { data: 'createdby' },
+			 { data: 'updatedby' },
+             { data: 'status' },
+             { data: null, render: function(data, type, full, meta) {
+				switch(full.status) {
+					   case 'Active' : return '<button onclick="inactiveadvertisement(' + full.slno + ')" title="Inactive Advertise" class="btn btn-warning fa fa-check-circle-o"></button>  <button onclick="editadvertisement(' + full.slno + ')" title="Edit Advertise" class="btn btn-info fa fa-pencil"></button>  <button onclick="deleteadvertisement(' + full.slno + ')" title="Delete Advertise" class="btn btn-danger fa fa-trash"></button> <a href='+ full.url +' target="blank"><button type="button" title="View Advertisement" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>'; break;
+					   case 'Inactive' : return '<button onclick="activeadvertisement(' + full.slno + ')" title="Active Advertise" class="btn btn-primary fa fa-check-circle-o"></button>  <button onclick="editadvertisement(' + full.slno + ')" title="Edit Advertise" class="btn btn-info fa fa-pencil"></button>  <button onclick="deleteadvertisement(' + full.slno + ')" title="Delete Advertise" class="btn btn-danger fa fa-trash"></button> <a href='+ full.url +' target="blank"><button  type="button" title="View Advertisement" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>'; break;
+					   default  : return 'N/A';
+					}
+				} 
+			 }
+          ],
+		  columnDefs : [
+				{ targets : [7],
+				  render : function (data, type, row) {
+					switch(data) {
+					   case 'Active' : return '<img src="<?=base_url();?>/Uploads/general/active.gif" title="Active"/>'; break;
+					   case 'Inactive' : return '<img src="<?=base_url();?>/Uploads/general/inactive.gif" title="Inactive">'; break;
+					   default  : return 'N/A';
+					}
+				  }
+				}
+		   ],
+		  dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv', title: 'Advertise SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'excel', title: 'Advertise SNRD <?php echo date("Y-m-d h-i a");?>'},
-                    {extend: 'pdf', title: 'Advertise SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'copy'},
+                    {extend: 'csv', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'excel', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
+                    {extend: 'pdf', title: 'RightTab SNRD <?php echo date("Y-m-d h-i a");?>'},
 
                     {extend: 'print',
                      customize: function (win){
                             $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
+                            $(win.document.body).css('font-size', '12px');
 
                             $(win.document.body).find('table')
                                     .addClass('compact')
@@ -188,10 +180,8 @@
                     }
                     }
                 ]
-
-            });
-
         });
+     });
 </script>
 <script>
 			function deleteadvertisement(did)	

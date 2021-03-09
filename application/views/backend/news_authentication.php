@@ -164,16 +164,22 @@
 										<td><?=$an->newsid;?></td>
 										<td><?=$an->category;?></td>
 										<?php
-										if($an->title == 1)
+										if($an->title == 1 && $an->category != 'Breaking')
 										{
 										?>
 										<td title="শিরোনাম"><a onclick="inactivetitle('<?=$an->slno;?>')" style="color :red;"><?=$an->ntitle;?></a></td>
 										<?php	
 										}
-										else
+										else if($an->title == 0 && $an->category != 'Breaking')
 										{
 										?>
 										<td><a onclick="activetitle('<?=$an->slno;?>')" style="color :blue;"><?=$an->ntitle;?></a></td>
+										<?php
+										}
+										else if($an->category == 'Breaking')
+										{
+										?>
+										<td title="Breaking" style="color :black;"><?=$an->ntitle;?></td>
 										<?php
 										}
 										?>

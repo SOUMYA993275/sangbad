@@ -167,11 +167,17 @@
           "ajax": {
             "url": "<?=site_url('UserPermission/PermissionList')?>",
             "type": "POST",
+			beforeSend: function(){
+			$('.loader').css("visibility", "visible");
+			},
             "data": function ( data ) {
                 data.uiid = $('#user').val();
                 data.piid = $('#pname').val();
 			}
 		},
+			complete: function(){
+			$('.loader').css("visibility", "hidden");
+		  },
 		  'columns': [
              {
 				"data": "uid",

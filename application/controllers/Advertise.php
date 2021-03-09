@@ -11,6 +11,7 @@ class Advertise extends CI_Controller {
         $this->load->helper('permission_helper');
 		$this->load->model('Adminmodel');
 		$this->load->model('PermissionModel');
+		$this->load->model('DataModel');
 		//helper function
 		//permissioncheck($page,$userid);
     }
@@ -126,8 +127,7 @@ class Advertise extends CI_Controller {
 				$Addist = $this->PermissionModel->Addist($userid);
 				if($Addist->u_status == '0')
 				{
-					$data['adddetails']=$this->Adminmodel->getAllAdvertise();
-					$this->load->view('backend/advertise_view',$data);
+					$this->load->view('backend/advertise_view');
 				}
 				else
 				{
@@ -145,6 +145,14 @@ class Advertise extends CI_Controller {
 			$this->session->set_flashdata('failed2','failed2');
 			redirect("admin");
 		}
+	}
+	
+	public function advertiseList()
+	{
+		$postData = $this->input->post();
+		$this->load->model('DataModel');
+		$data = $this->DataModel->getAdvertise($postData);
+		print json_encode($data);
 	}
 	
 	public function EditAdvetisement($id)
