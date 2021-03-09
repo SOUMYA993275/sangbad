@@ -191,7 +191,7 @@
                         var html = '';
 						var i;
                         for(i=0; i < data.length; i++){
-                            html += '<option value='+data[i].cid+'>'+data[i].category+'</option>';
+                            html += '<option value='+data[i].id+'>'+data[i].category+'</option>';
                         }
                         $('select#catgorys').html(html);
  
