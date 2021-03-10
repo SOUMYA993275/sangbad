@@ -115,15 +115,10 @@ $(document).ready(function(){
           'processing': true,
           'serverSide': true,
           'serverMethod': 'post',
-		  beforeSend: function(){
-			$('.loader').css("visibility", "visible");
-		  },
-          'ajax': {
+		  'ajax': {
              'url':'<?=base_url()?>index.php/Advertise/advertiseList'
           },
-		  complete: function(){
-			$('.loader').css("visibility", "hidden");
-		  },
+		  
           'columns': [
 			 {
 				"data": "slno",

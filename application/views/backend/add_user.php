@@ -341,6 +341,22 @@ swal({
 <?php
 }
 ?>
+<?php
+if($this->session->flashdata('message11') != '')
+{
+?>
+<script>
+swal({
+  title: "Oops!",
+  text: "Internal Server Error",
+  icon: "error",
+  button: false,
+  timer: "1500",
+});
+</script>
+<?php
+}
+?>
 </body>
 
 </html>

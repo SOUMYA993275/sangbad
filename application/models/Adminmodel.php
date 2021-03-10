@@ -6,8 +6,6 @@ class Adminmodel extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('users');
-		$this->db->join('menu_permission','users.slno = menu_permission.user_id','RIGHT');
-		$this->db->join('user_permission','users.slno = user_permission.user_id','LEFT');
 		$this->db->where('email', $user);
 		$this->db->where('password', $pass);
 		$this->db->order_by('users.slno');
@@ -50,6 +48,22 @@ class Adminmodel extends CI_Model
 		return $result = $query->result();
 	}
 	
+	public function getUserActive($email)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('email',$email);
+		$query = $this->db->get(); 
+		return $result = $query->result();
+	}
+	
+	public function UpdateUsersActive($email,$data)
+	{
+		$this->db->set('dom','NOW()', FALSE);
+		$this->db->where('email',$email);
+		$this->db->update('users',$data);
+	}
+	
 	public function TotalUser()
 	{
 		$this->db->select('COUNT(*) as count');
@@ -71,6 +85,17 @@ class Adminmodel extends CI_Model
 		$this->db->select('*');
 		$this->db->from('users');
 		$this->db->where('slno',$id);
+		$query = $this->db->get(); 
+		return $result = $query->result();
+	}
+	
+	public function getUserIdnotequal($id,$email)
+	{
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('xdelete',0);
+		$this->db->where('email !=',$email);
+		$this->db->where('slno !=',$id);
 		$query = $this->db->get(); 
 		return $result = $query->result();
 	}
@@ -257,15 +282,6 @@ class Adminmodel extends CI_Model
 		$this->db->insert('advertisementmaster',$data);
 	}
 	
-	public function getAllAdvertise()
-	{
-		$this->db->select('*');
-		$this->db->from('advertisementmaster');
-		$this->db->where('xdelete', 0);
-		$query = $this->db->get(); 
-		return $result = $query->result();
-	}
-	
 	public function getAdvertiseById($id)
 	{
 		$this->db->select('*');
@@ -397,9 +413,14 @@ class Adminmodel extends CI_Model
 		$this->db->insert('forgot_token',$data1);
 	}
 	
-	public function InsertEmailLog($data3)
+	public function InsertEmailLogsuc($data3)
 	{
 		$this->db->insert('delivery_log',$data3);
+	}
+	
+	public function InsertEmailLogerr($data5)
+	{
+		$this->db->insert('delivery_log',$data5);
 	}
 	
 	public function checkurlexp($urlex)

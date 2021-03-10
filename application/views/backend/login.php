@@ -243,6 +243,21 @@
 					<?php
 						}
 					?>
+					<?php
+					if($this->session->flashdata('user') != '')
+						{
+					?>
+						<script>
+							swal({
+							  title: "Success",
+							  text: "User Activated Successfully",
+							  icon: "success",
+							  button: false,
+							});
+							</script>
+					<?php
+						}
+					?>
 </body>
 
 </html>

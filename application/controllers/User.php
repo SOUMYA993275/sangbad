@@ -140,9 +140,47 @@ class User extends CI_Controller {
 											'xdelete' => 0,
 											'is_email_verified' => 0,
 										);
-										$this->Adminmodel->InsertUser($data);
-										$this->session->set_flashdata('message1','message1');
-										redirect("User");
+										$data2 = array(
+										'email' => $email,
+										'name' => $this->input->post('name'),
+										);
+										$data3 = array(
+										'email' => $email,
+										'type' => 'USER VERIFICATION',
+										'response' => 'Send',
+										'content' => json_encode($data),
+										'doc' => date('Y-m-d H:i:s')
+										);
+										$data5 = array(
+										'email' => $email,
+										'type' => 'USER VERIFICATION',
+										'response' => 'Failed',
+										'content' => json_encode($data),
+										'doc' => date('Y-m-d H:i:s')
+										);
+										$email = $this->input->post('email');
+										$message = $this->load->view('template/userverification.php',$data2,TRUE);
+										$this->load->library('email');
+										$this->email->set_newline("\r\n");
+										$this->email->set_mailtype("html");
+										$this->email->from('sangbadraatdin@gmail.com','SANGBAD RAATDIN'); // change it to yours
+										$this->email->to($email);// change it to yours
+										$this->email->reply_to('sangbadraatdin@gmail.com');
+										$this->email->subject('Confirm Your Account');
+										$this->email->message($message);
+										if($this->email->send())
+										{
+											$this->Adminmodel->InsertEmailLogsuc($data3);
+											$this->Adminmodel->InsertUser($data);
+											$this->session->set_flashdata('message1','message1');
+											redirect("User");
+										} 
+										else
+										{
+											$this->Adminmodel->InsertEmailLogerr($data5);
+											$this->session->set_flashdata('message11','message11'); // Email not Send
+											redirect('User/add_user');
+										}
 							}
 							else
 							{
@@ -229,120 +267,139 @@ class User extends CI_Controller {
 					$uactive = $this->Adminmodel->uactive($adminid);
 					if($uactive->nstatus == '0')
 					{
+						$id = $this->input->post('id');
+						$email = $this->input->post('email');
+						$result = $this->Adminmodel->getUserIdnotequal($id,$email);
+						if($result->email != $email)
+						{	
 								$id = $this->input->post('id');
 								$imgup = $this->input->post('imagechange');
 								$data['userdetails'] = $this->Adminmodel->getUserbyId($id);
 								if($imgup == 1)
 								{
-										$docpath ="Uploads/profile/";
-										if (file_exists($docpath))
+									$docpath ="Uploads/profile/";
+									if (file_exists($docpath))
+									{
+									}
+									else
+									{
+										mkdir($docpath, 0777, TRUE);
+									}
+									if(!empty($_FILES['image']['name']))
+									{
+										$config['upload_path'] = $docpath;
+										$config['allowed_types'] = 'jpg|jpeg|png|gif';
+										$config['file_name'] = $_FILES['image']['name'];
+										//Load upload library and initialize configuration
+										$this->load->library('upload',$config);
+										$this->upload->initialize($config);
+										if ($_FILES["image"]["size"] >= 500000 ) 
 										{
+											$this->session->set_flashdata('message3','message3');
+											redirect("User/edituser/$id");
+											die();
+										}
+										else 
+										{
+						
+										}	
+										if($this->upload->do_upload('image'))
+										{
+											$uploadData = $this->upload->data();
+											$picture = $uploadData['file_name'];
+											$upparh = $docpath.$picture;
 										}
 										else
 										{
-											mkdir($docpath, 0777, TRUE);
-										}
-										if(!empty($_FILES['image']['name']))
-										{
-											$config['upload_path'] = $docpath;
-											$config['allowed_types'] = 'jpg|jpeg|png|gif';
-											$config['file_name'] = $_FILES['image']['name'];
-											
-											//Load upload library and initialize configuration
-											$this->load->library('upload',$config);
-											$this->upload->initialize($config);
-											if ($_FILES["image"]["size"] >= 500000 ) 
-												{
-													$this->session->set_flashdata('message3','message3');
-													redirect("User/edituser/$id");
-													die();
-												}
-												else 
-												{
-													
-												}	
-											if($this->upload->do_upload('image')){
-												$uploadData = $this->upload->data();
-												$picture = $uploadData['file_name'];
-												$upparh = $docpath.$picture;
-											}else{
-												$upparh = '';
-											}
-										}else{
 											$upparh = '';
-										}		
-												$data = array(
-													'name' => $this->input->post('name'),
-													'co' => $this->input->post('co'),
-													'dob' => $this->input->post('dob'),
-													'gender' => $this->input->post('gender'),
-													'mobile' => $this->input->post('mobile'),
-													'email' => $this->input->post('email'),
-													'mobile2' => $this->input->post('mobile2'),
-													'status' => $this->input->post('status'),
-													'address' => $this->input->post('address'),
-													'blood' => $this->input->post('blood'),
-													'image' => $upparh,
-												);
-												$this->Adminmodel->UpdateUsers($data,$id);
-												$this->session->set_flashdata('message6','message6');
-												redirect("User");
+										}
+									}
+									else
+									{
+										$upparh = '';
+									}		
+										$data = array(
+											'name' => $this->input->post('name'),
+											'co' => $this->input->post('co'),
+											'dob' => $this->input->post('dob'),
+											'gender' => $this->input->post('gender'),
+											'mobile' => $this->input->post('mobile'),
+											'email' => $this->input->post('email'),
+											'mobile2' => $this->input->post('mobile2'),
+											'status' => $this->input->post('status'),
+											'address' => $this->input->post('address'),
+											'blood' => $this->input->post('blood'),
+											'image' => $upparh,
+										);
+										$this->Adminmodel->UpdateUsers($data,$id);
+										$this->session->set_flashdata('message6','message6');
+										redirect("User");
 								}
 								else
 								{
 									$docpath ="Uploads/profile/";
-										if (file_exists($docpath))
+									if (file_exists($docpath))
+									{
+									}
+									else
+									{
+										mkdir($docpath, 0777, TRUE);
+									}
+									if(!empty($_FILES['image']['name']))
+									{
+										$config['upload_path'] = $docpath;
+										$config['allowed_types'] = 'jpg|jpeg|png|gif';
+										$config['file_name'] = $_FILES['image']['name'];
+										//Load upload library and initialize configuration
+										$this->load->library('upload',$config);
+										$this->upload->initialize($config);
+										if ($_FILES["image"]["size"] >= 500000 ) 
 										{
+											$this->session->set_flashdata('message3','message3');
+											redirect("User/edituser/$id");
+											die();
+										}
+										else 
+										{
+										
+										}	
+										if($this->upload->do_upload('image'))
+										{
+											$uploadData = $this->upload->data();
+											$picture = $uploadData['file_name'];
+											$upparh = $docpath.$picture;
 										}
 										else
 										{
-											mkdir($docpath, 0777, TRUE);
-										}
-										if(!empty($_FILES['image']['name']))
-										{
-											$config['upload_path'] = $docpath;
-											$config['allowed_types'] = 'jpg|jpeg|png|gif';
-											$config['file_name'] = $_FILES['image']['name'];
-											
-											//Load upload library and initialize configuration
-											$this->load->library('upload',$config);
-											$this->upload->initialize($config);
-											if ($_FILES["image"]["size"] >= 500000 ) 
-												{
-													$this->session->set_flashdata('message3','message3');
-													redirect("User/edituser/$id");
-													die();
-												}
-												else 
-												{
-													
-												}	
-											if($this->upload->do_upload('image')){
-												$uploadData = $this->upload->data();
-												$picture = $uploadData['file_name'];
-												$upparh = $docpath.$picture;
-											}else{
-												$upparh = '';
-											}
-										}else{
 											$upparh = '';
-										}		
-												$data = array(
-													'name' => $this->input->post('name'),
-													'co' => $this->input->post('co'),
-													'dob' => $this->input->post('dob'),
-													'gender' => $this->input->post('gender'),
-													'mobile' => $this->input->post('mobile'),
-													'email' => $this->input->post('email'),
-													'mobile2' => $this->input->post('mobile2'),
-													'status' => $this->input->post('status'),
-													'address' => $this->input->post('address'),
-													'blood' => $this->input->post('blood'),
-												);
-												$this->Adminmodel->UpdateUsers($data,$id);
-												$this->session->set_flashdata('message6','message6');
-												redirect("User");
+										}
+									}
+									else
+									{
+										$upparh = '';
+									}		
+										$data = array(
+											'name' => $this->input->post('name'),
+											'co' => $this->input->post('co'),
+											'dob' => $this->input->post('dob'),
+											'gender' => $this->input->post('gender'),
+											'mobile' => $this->input->post('mobile'),
+											'email' => $this->input->post('email'),
+											'mobile2' => $this->input->post('mobile2'),
+											'status' => $this->input->post('status'),
+											'address' => $this->input->post('address'),
+											'blood' => $this->input->post('blood'),
+										);
+											$this->Adminmodel->UpdateUsers($data,$id);
+											$this->session->set_flashdata('message6','message6');
+											redirect("User");
 								}
+						}
+						else
+						{
+							$this->session->set_flashdata('message2','message2');
+							redirect("User/edituser/$id");
+						}
 					}
 					else
 					{
@@ -486,6 +543,26 @@ class User extends CI_Controller {
 		}
 	}
 	
+	public function active()
+	{
+	    $this->load->library('session');
+		$this->load->model('Adminmodel');
+		$email = $this->input->get('url');
+		$result = $this->Adminmodel->getUserActive($email);
+		if(!$result)
+		{
+		    $data = array(
+				'is_email_verified' => 1,
+			);
+			$this->Adminmodel->UpdateUsersActive($email,$data);
+            $this->session->set_flashdata('user',' msg');
+			redirect("admin");
+	   	}
+		else
+		{
+			
+		}
+	}
 	
 }
 ?>

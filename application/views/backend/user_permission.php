@@ -224,7 +224,7 @@
             var options = '';
             options +='<option value="">Select Page</option>';
             for (var i = 0; i < json.length; i++) {
-                options += '<option value="' + json[i].rid + '">' + json[i].pname + '</option>';
+                options += '<option value="' + json[i].pid + '">' + json[i].pname + '</option>';
             }
             $("select#paged").html(options);
  

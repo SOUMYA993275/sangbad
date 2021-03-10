@@ -161,14 +161,13 @@
   $(document).ready(function(){
 	table = $('.dataTables-example').DataTable({
           'processing': true,
-		  "language": {
-            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '},
           'serverSide': true,
 		  "searching": false,
           'serverMethod': 'post',
 		  
           "ajax": {
             "url": "<?=site_url('UserPermission/PermissionList')?>",
+			
             "type": "POST",
 			"data": function ( data ) {
                 data.uiid = $('#user').val();

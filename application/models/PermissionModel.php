@@ -23,7 +23,7 @@ class PermissionModel extends CI_Model
 	
 	function fetch_page($id)
 	{
-      $this->db->select('role_wise_permission.id as rid,permission_group.page_name as pname');
+      $this->db->select('role_wise_permission.id as rid,permission_group.page_name as pname,permission_group.id as pid');
       $this->db->join('permission_group','role_wise_permission.page_id = permission_group.id','LEFT');
       $this->db->join('users','users.status = role_wise_permission.role','RIGHT');
 	  $this->db->where('users.slno', $id);

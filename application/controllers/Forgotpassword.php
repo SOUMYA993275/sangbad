@@ -47,11 +47,18 @@ class Forgotpassword extends CI_Controller {
 				$data3 = array(
 				'email' => $email,
 				'type' => 'FORGOTPASSWORD',
-				'content' => json_encode($data2),
+				'response' => 'Send',
+				'content' => json_encode($data1),
+				'doc' => date('Y-m-d H:i:s')
+				);
+				$data5 = array(
+				'email' => $email,
+				'type' => 'FORGOTPASSWORD',
+				'response' => 'Failed',
+				'content' => json_encode($data1),
 				'doc' => date('Y-m-d H:i:s')
 				);
 				$this->Adminmodel->InsertExptoken($data1);
-				$this->Adminmodel->Updatetoken($data4,$email);
 				$email = $this->input->post('email');
 				$message = $this->load->view('template/forgotpassword.php',$data2,TRUE);
 				$this->load->library('email');
@@ -64,13 +71,14 @@ class Forgotpassword extends CI_Controller {
 				$this->email->message($message);
 				if($this->email->send())
 				{
-					$this->Adminmodel->InsertEmailLog($data3);
+					$this->Adminmodel->Updatetoken($data4,$email);
+					$this->Adminmodel->InsertEmailLogsuc($data3);
 					$data['error'] = 6; // Email Send
 					$this->load->view('backend/login',$data);
 				} 
 				else
 				{
-					$this->Adminmodel->InsertEmailLog($data3);
+					$this->Adminmodel->InsertEmailLogerr($data5);
 					$this->session->set_flashdata('message1','message1'); // Email not Send
 					redirect('Forgotpassword');
 				}

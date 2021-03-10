@@ -64,11 +64,6 @@ class Admin extends CI_Controller {
 									$email=$r->email;
 									$mobile=$r->mobile;
 									$nstatus=$r->nstatus;
-									$m_status=$r->m_status;
-									$page_id=$r->page_id;
-									$action_id=$r->action_id;
-									$u_status=$r->u_status;
-									$menu_name=$r->menu_name;
 									$image=$r->image;
 								}
 							
@@ -85,8 +80,6 @@ class Admin extends CI_Controller {
 									'email'=>$email,
 									'mobile'=>$mobile,
 									'nstatus'=>$nstatus,
-									'm_status'=>$m_status,
-									'menu_name'=>$menu_name,
 									'image'=>$image,
 								);
 								$datetime = date('Y-m-d h:i:s');
@@ -102,7 +95,6 @@ class Admin extends CI_Controller {
 								$email = $this->session->userdata('email');
 								$mobile = $this->session->userdata('mobile');
 								$nstatus = $this->session->userdata('nstatus');
-								$u_status = $this->session->userdata('u_status');
 								$image = $this->session->userdata('image');
 								$ltdate= $this->session->userdata('lastlogintime');
 								$this->Adminmodel->LastLoginTimeUpdate($id);
