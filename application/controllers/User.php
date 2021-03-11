@@ -547,22 +547,22 @@ class User extends CI_Controller {
 	{
 	    $this->load->library('session');
 		$this->load->model('Adminmodel');
-		$email = $this->input->get('url');
-		$result = $this->Adminmodel->getUserActive($email);
-		if(!$result)
-		{
-		    $data = array(
+		$data['url'] = $this->input->get('url');
+        $_SESSION['url'] = $data['url'];
+        $this->load->view("backend/userverification");
+	}
+	
+	public function activeupdate()
+	{
+	    $this->load->library('session');
+		$this->load->model('Adminmodel');
+		$url = $_SESSION['url'];
+			$data = array(
 				'is_email_verified' => 1,
 			);
 			$this->Adminmodel->UpdateUsersActive($email,$data);
             $this->session->set_flashdata('user',' msg');
 			redirect("admin");
-	   	}
-		else
-		{
-			
-		}
 	}
-	
 }
 ?>
