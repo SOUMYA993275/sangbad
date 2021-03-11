@@ -65,23 +65,8 @@
 		$i++;
 		?>
             <div class="col-lg-3">
-                <div class="contact-box center-version">
-				<div class="dv" style="float :right;">
-					<?php
-					if($mn->nstatus==1)
-					{
-					?>
-					<img src='<?=base_url();?>Uploads/general/inactive.gif' title="Inactive">
-					<?php
-					}
-					else if($mn->nstatus==0)
-					{
-					?>
-					<img src='<?=base_url();?>Uploads/general/active.gif' title="Active">
-					<?php
-					}
-					?>
-				</div>
+                <div class="contact-box center-version" style="<?php if($mn->nstatus==0){ echo 'border: 6px solid #0cf008'; }else if($mn->nstatus==1){ echo 'border: 6px solid #f60b36';}?>">
+				
 					<a>
 						<img alt="<?=$mn->name;?>" class="rounded-circle" src="<?=base_url($mn->image);?>">
 						<h3 class="m-b-xs"><strong><?=$mn->name;?></strong></h3>
