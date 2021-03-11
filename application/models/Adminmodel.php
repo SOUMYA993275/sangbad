@@ -48,16 +48,6 @@ class Adminmodel extends CI_Model
 		return $result = $query->result();
 	}
 	
-	public function getUserbyEmail($email)
-	{
-		$this->db->select('*');
-		$this->db->from('users');
-		$this->db->where('xdelete',0);
-		$this->db->where('email',$email);
-		$query = $this->db->get(); 
-		return $result = $query->result();
-	}
-	
 	public function getUserActive($email)
 	{
 		$this->db->select('*');

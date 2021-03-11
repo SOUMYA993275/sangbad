@@ -83,8 +83,7 @@ class User extends CI_Controller {
 							$newstring2=str_pad($newstring1, 4, "0", STR_PAD_LEFT);
 							$rqno1="SNRD";
 							$officeid=$rqno1.$newstring2;
-							$result1 = $this->Adminmodel->getUserbyEmail($email);
-							if($result == '')
+							if($result[0]->email != $email )
 							{
 								$docpath ="Uploads/profile/";
 								if (file_exists($docpath))
