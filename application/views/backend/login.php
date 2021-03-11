@@ -252,7 +252,6 @@
 							  title: "Success",
 							  text: "User Activated Successfully",
 							  icon: "success",
-							  button: false,
 							});
 							</script>
 					<?php
