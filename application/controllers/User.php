@@ -83,7 +83,7 @@ class User extends CI_Controller {
 							$newstring2=str_pad($newstring1, 4, "0", STR_PAD_LEFT);
 							$rqno1="SNRD";
 							$officeid=$rqno1.$newstring2;
-							if($result->email != $email)
+							if(!$result)
 							{
 								$docpath ="Uploads/profile/";
 								if (file_exists($docpath))
