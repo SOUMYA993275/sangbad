@@ -65,7 +65,7 @@
 		$i++;
 		?>
             <div class="col-lg-3">
-                <div class="contact-box center-version" style="<?php if($mn->nstatus==0){ echo 'border: 6px solid #0cf008'; }else if($mn->nstatus==1){ echo 'border: 6px solid #f60b36';}?>">
+                <div class="contact-box center-version" style="<?php if($mn->nstatus==0){ echo 'border: 6px solid #0cf008; border-radius: 10px'; }else if($mn->nstatus==1){ echo 'border: 6px solid #f60b36; border-radius: 10px';}?>">
 				
 					<a>
 						<img alt="<?=$mn->name;?>" class="rounded-circle" src="<?=base_url($mn->image);?>">
