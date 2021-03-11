@@ -82,7 +82,7 @@
 					}
 					?>
 				</div>
-					<a href="profile.html">
+					<a>
 						<img alt="<?=$mn->name;?>" class="rounded-circle" src="<?=base_url($mn->image);?>">
 						<h3 class="m-b-xs"><strong><?=$mn->name;?></strong></h3>
 						<div class="fa fa-user-secret"> <?=$mn->status;?></div>
