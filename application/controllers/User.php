@@ -547,8 +547,8 @@ class User extends CI_Controller {
 	{
 	    $this->load->library('session');
 		$this->load->model('Adminmodel');
-		$data['url'] = $this->input->get('url');
-        $_SESSION['url'] = $data['url'];
+		$data['email'] = $this->input->get('url');
+        $_SESSION['email'] = $data['email'];
         $this->load->view("backend/userverification");
 	}
 	
@@ -556,7 +556,7 @@ class User extends CI_Controller {
 	{
 	    $this->load->library('session');
 		$this->load->model('Adminmodel');
-		$url = $_SESSION['url'];
+		$email = $_SESSION['email'];
 			$data = array(
 				'is_email_verified' => 1,
 			);

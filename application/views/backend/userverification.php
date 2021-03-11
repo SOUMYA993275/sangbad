@@ -72,7 +72,7 @@
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        <h3>Hi, <?=$name;?></h3>
+                                        <h3></h3>
                                     </td>
                                 </tr>
                                 <tr>
