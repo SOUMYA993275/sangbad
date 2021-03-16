@@ -29,6 +29,9 @@
 	.ibox-content{
 		color :black;
 	}
+	.ibox-title{
+		background-color: #e8ecd0;
+	}
 	</style>
 	<div class="loader"></div>
 <body>
@@ -51,13 +54,13 @@
 						}
 						?>
                             <div class="ibox-title">
-                                <h1 class="label label-success float-left">Total User</h1>
+                                <h1 class="label label-success float-left"><?=$this->session->userdata('name');?></h1>
                             </div>
-                            <a href="<?=site_url('User');?>"><div class="ibox-content">
-                                <h1 class="no-margins"><?=$ucount;?></h1>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Total income</small>
-                            </div></a>
+                            <div class="ibox-content">
+                                <h1 class="no-margins" id="clock"></h1>
+                                <div class="stat-percent font-bold text-danger"></div>
+                                <?php echo bn_date(date('l, d M, Y'));?>
+                            </div>
                         </div>
                     </div>
 					<div class="col-lg-3">
@@ -70,13 +73,12 @@
 						}
 						?>
                             <div class="ibox-title">
-                               <h1 class="label label-info float-left">Todays News</h1>
+                               <h1 class="label label-warning float-left">Todays News</h1>
                             </div>
                             <a href="<?=site_url('NewsAuthentication');?>"><div class="ibox-content">
                                 <h1 class="no-margins"><?=$ncount;?> </h1>
                                 <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <?php echo bn_date(date('l, d M, Y'));?>
-                            </div></a>
+							</div></a>
                         </div>
                     </div>
                     <div class="col-lg-3">
@@ -84,11 +86,11 @@
                             <div class="ibox-title">
                                 <h1 class="label label-primary float-left">Todays News</h1>
                             </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">106,120</h1>
-                                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
-                                <small>New visits</small>
-                            </div>
+                            <a href="<?=site_url('User');?>"><div class="ibox-content">
+                                <h1 class="no-margins"><?=$ucount;?></h1>
+                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                                <small>Total income</small>
+                            </div></a>
                         </div>
                     </div>
                     <div class="col-lg-3">
@@ -139,7 +141,7 @@
                     <div class="col-lg-3">
                         <div class="ibox ">
                             <div class="ibox-title">
-                                <h1 class="label label-info float-left">Todays News</h1>
+                                <h1 class="label label-warning float-left">Todays News</h1>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">106,120</h1>
@@ -451,6 +453,31 @@ return true;
 }
 });
 </script>
+<?php
+
+date_default_timezone_set("Asia/Calcutta");
+$tz_time = date("F j, Y h:i:s");
+
+?>
+<script type="text/javascript">
+                        
+function getTime( ) {
+	var d = new Date( ); 
+	d.setHours( d.getHours() ); // offset from local time
+	var h = (d.getHours() % 12) || 12; // show midnight & noon as 12
+	return (
+		( h < 10 ? '0' : '') + h +
+		( d.getMinutes() < 10 ? ':0' : ':') + d.getMinutes() +
+                // optional seconds display
+		 ( d.getSeconds() < 10 ? ':0' : ':') + d.getSeconds() + 
+		( d.getHours() < 12 ? ' AM' : ' PM' )
+	);
+	
+}
+
+var clock = document.getElementById('clock');
+setInterval( function() { clock.innerHTML = getTime(); }, 1000 );
+</script> 
 
 						<?php
 					if($this->session->flashdata('message3') != '')

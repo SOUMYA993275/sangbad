@@ -13,8 +13,6 @@ class Adminmodel extends CI_Model
 		return $result = $query->result();
 	}
 	
-	
-	
 	public function LastLoginTimeUpdate($id)
 	{
 		$this->db->where('slno',$id);
