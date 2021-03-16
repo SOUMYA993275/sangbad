@@ -358,6 +358,22 @@ swal({
 <?php
 }
 ?>
+<?php
+if($this->session->flashdata('message2') != '')
+{
+?>
+<script>
+swal({
+  title: "Oops!",
+  text: "Email already exist",
+  icon: "error",
+  button: false,
+  timer: "1500",
+});
+</script>
+<?php
+}
+?>
 </body>
 
 </html>

@@ -269,7 +269,7 @@ class User extends CI_Controller {
 					{
 						$id = $this->input->post('id');
 						$email = $this->input->post('email');
-						$result = $this->Adminmodel->getUserIdnotequal($id,$email);
+						$result = $this->Adminmodel->getUserIdnotequal($id);
 						if($result->email != $email)
 						{	
 								$id = $this->input->post('id');
