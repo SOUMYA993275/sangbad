@@ -159,83 +159,83 @@
 									$i++;
 									?>
 									<tbody>
-									<tr class="gradeX">
-										<td><?=$i;?></td>
-										<td><?=$an->newsid;?></td>
-										<td><?=$an->category;?></td>
-										<?php
-										if($an->title == 1 && $an->category != 'Breaking')
-										{
-										?>
-										<td title="শিরোনাম"><a onclick="inactivetitle('<?=$an->slno;?>')" style="color :red;"><?=$an->ntitle;?></a></td>
-										<?php	
-										}
-										else if($an->title == 0 && $an->category != 'Breaking')
-										{
-										?>
-										<td><a onclick="activetitle('<?=$an->slno;?>')" style="color :blue;"><?=$an->ntitle;?></a></td>
-										<?php
-										}
-										else if($an->category == 'Breaking')
-										{
-										?>
-										<td title="Breaking" style="color :black;"><?=$an->ntitle;?></td>
-										<?php
-										}
-										?>
-										<td><?=$an->date;?> <?=$an->time;?></td>
-										<td><?=$an->createdby;?></td>
-										<td><?=$an->updatedby;?></td>
-										<td>
-										<?php
-												if($an->nstatus==1)
-												{
-												?>
-												<img src='<?=base_url();?>Uploads/general/inactive.gif' title="Inactive">
-												<?php
-												}
-												else if($an->nstatus==0)
-												{
-												?>
-												<img src='<?=base_url();?>Uploads/general/active.gif' title="Active">
-											   <?php
-												}
-												?>
-										</td>
-										<td class="center">
-										<?php
-												if($an->nstatus==1) 
-												{ 
-												?>
-													<button onclick="activenews('<?=$an->slno;?>')" type="button" title="Active News" class="btn btn-success fa fa-check-circle-o"></button>
-												<?php
-													} 
+										<tr class="gradeX">
+											<td><?=$i;?></td>
+											<td><?=$an->newsid;?></td>
+											<td><?=$an->category;?></td>
+											<?php
+											if($an->title == 1 && $an->category != 'Breaking')
+											{
+											?>
+											<td title="শিরোনাম"><a onclick="inactivetitle('<?=$an->slno;?>')" style="color :red;"><?=$an->ntitle;?></a></td>
+											<?php	
+											}
+											else if($an->title == 0 && $an->category != 'Breaking')
+											{
+											?>
+											<td><a onclick="activetitle('<?=$an->slno;?>')" style="color :blue;"><?=$an->ntitle;?></a></td>
+											<?php
+											}
+											else if($an->category == 'Breaking')
+											{
+											?>
+											<td title="Breaking" style="color :black;"><?=$an->ntitle;?></td>
+											<?php
+											}
+											?>
+											<td><?=$an->date;?> <?=$an->time;?></td>
+											<td><?=$an->createdby;?></td>
+											<td><?=$an->updatedby;?></td>
+											<td>
+											<?php
+													if($an->nstatus==1)
+													{
+													?>
+													<img src='<?=base_url();?>Uploads/general/inactive.gif' title="Inactive">
+													<?php
+													}
 													else if($an->nstatus==0)
+													{
+													?>
+													<img src='<?=base_url();?>Uploads/general/active.gif' title="Active">
+												   <?php
+													}
+													?>
+											</td>
+											<td class="center">
+											<?php
+													if($an->nstatus==1) 
 													{ 
-												?>
-													<button onclick="inactivenews('<?=$an->slno;?>')" type="button" title="Inactive News" class="btn btn-warning fa fa-check-circle-o"></button>
-												<?php
-													} 
-												?>
-												<?php
-												if($an->category == 'Breaking')
-												{
-												?>
-												<button onclick="editbreaking('<?=$an->slno;?>')" type="button" title="Edit Breakig News" class="btn btn-info fa fa-pencil"></button>
-												<?php
-												}
-												else
-												{
-												?>
-												<button onclick="editnews('<?=$an->slno;?>')" type="button" title="Edit News" class="btn btn-info fa fa-pencil"></button>
-												<?php
-												}
-												?>
-												<button onclick="deletenews('<?=$an->slno;?>')" type="button" title="Delete News" class="btn btn-danger fa fa-trash"></button>
-												<a href="" target="blank"><button  type="button" title="View Advertisement" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>
-												<button type="button" title="News Reading Count" class="btn btn-danger" disabled='true' style='border: 2px solid blue;background: #562808;border-radius: 14px;'>12</button>
-										</td>
-									</tr>
+													?>
+														<button onclick="activenews('<?=$an->slno;?>')" type="button" title="Active News" class="btn btn-success fa fa-check-circle-o"></button>
+													<?php
+														} 
+														else if($an->nstatus==0)
+														{ 
+													?>
+														<button onclick="inactivenews('<?=$an->slno;?>')" type="button" title="Inactive News" class="btn btn-warning fa fa-check-circle-o"></button>
+													<?php
+														} 
+													?>
+													<?php
+													if($an->category == 'Breaking')
+													{
+													?>
+													<button onclick="editbreaking('<?=$an->slno;?>')" type="button" title="Edit Breakig News" class="btn btn-info fa fa-pencil"></button>
+													<?php
+													}
+													else
+													{
+													?>
+													<button onclick="editnews('<?=$an->slno;?>')" type="button" title="Edit News" class="btn btn-info fa fa-pencil"></button>
+													<?php
+													}
+													?>
+													<button onclick="deletenews('<?=$an->slno;?>')" type="button" title="Delete News" class="btn btn-danger fa fa-trash"></button>
+													<a href="" target="blank"><button  type="button" title="View Advertisement" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>
+													<button type="button" title="News Reading Count" class="btn btn-danger" disabled='true' style='border: 2px solid blue;background: #562808;border-radius: 14px;'>12</button>
+											</td>
+										</tr>
 									</tbody>
 								<?php
 								}

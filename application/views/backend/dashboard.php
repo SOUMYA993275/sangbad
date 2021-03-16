@@ -46,14 +46,7 @@
         <div class="row">
                     <div class="col-lg-3">
                         <div class="ibox ">
-						<?php
-						$ucount='';
-						foreach($totaluser as $tdn)
-						{
-							$ucount = $tdn->count;
-						}
-						?>
-                            <div class="ibox-title">
+							<div class="ibox-title">
                                 <h1 class="label label-success float-left"><?=$this->session->userdata('name');?></h1>
                             </div>
                             <div class="ibox-content">
@@ -77,36 +70,10 @@
                             </div>
                             <a href="<?=site_url('NewsAuthentication');?>"><div class="ibox-content">
                                 <h1 class="no-margins"><?=$ncount;?> </h1>
-                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                                <small>Published News</small>
 							</div></a>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="ibox ">
-                            <div class="ibox-title">
-                                <h1 class="label label-primary float-left">Todays News</h1>
-                            </div>
-                            <a href="<?=site_url('User');?>"><div class="ibox-content">
-                                <h1 class="no-margins"><?=$ucount;?></h1>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Total income</small>
-                            </div></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="ibox ">
-                            <div class="ibox-title">
-                                <h1 class="label label-danger float-left">Todays News</h1>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">80,600</h1>
-                                <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
-                                <small>In first month</small>
-                            </div>
-                        </div>
-            </div>
-        </div>
-		<div class="row">
                     <div class="col-lg-3">
                         <div class="ibox ">
 						<?php
@@ -117,13 +84,50 @@
 						}
 						?>
                             <div class="ibox-title">
-                                <h1 class="label label-danger float-left">Total User</h1>
+                                <h1 class="label label-primary float-left">Total Users</h1>
                             </div>
-                            <div class="ibox-content">
+                            <a href="<?=site_url('User');?>"><div class="ibox-content">
                                 <h1 class="no-margins"><?=$ucount;?></h1>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Total income</small>
+                                <small>Registered User</small>
+                            </div></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox ">
+						<?php
+						$gicount='';
+						foreach($totalimage as $tdn)
+						{
+							$gicount = $tdn->count;
+						}
+						?>
+                            <div class="ibox-title">
+                                <h1 class="label label-danger float-left">Total Images</h1>
                             </div>
+                            <a href="<?=site_url('GalleryImage/GalleryImageView');?>"><div class="ibox-content">
+                                <h1 class="no-margins"><?=$gicount;?></h1>
+                                <small>Registered Image</small>
+                            </div></a>
+                        </div>
+					</div>
+        </div>
+		<div class="row">
+                    <div class="col-lg-3">
+                        <div class="ibox ">
+							<?php
+							$gvcount='';
+							foreach($totalvideo as $tdn)
+							{
+								$gvcount = $tdn->count;
+							}
+							?>
+                            <div class="ibox-title">
+                                <h1 class="label label-danger float-left">Total Video</h1>
+                            </div>
+                            <a href="<?=site_url('Video');?>"><div class="ibox-content">
+                                <h1 class="no-margins"><?=$gvcount;?></h1>
+                                <small>Active Video</small>
+                            </div></a>
                         </div>
                     </div>
                     <div class="col-lg-3">

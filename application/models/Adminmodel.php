@@ -315,6 +315,16 @@ class Adminmodel extends CI_Model
 		return $result = $query->result();
 	}
 	
+	public function TotalImageCount()
+	{
+		$this->db->select('COUNT(*) as count');
+		$this->db->from('imagegallerymaster');
+		$this->db->where('xdelete',0);
+		$this->db->where('status',0);
+		$query = $this->db->get(); 
+		return $result = $query->result();
+	}
+	
 	public function UpdateImagelist($data,$id)
 	{
 		$this->db->set('dom','NOW()', FALSE);
@@ -349,6 +359,16 @@ class Adminmodel extends CI_Model
 		$this->db->set('dom','NOW()', FALSE);
 		$this->db->where('slno',$id);
 		$this->db->update('videogallery',$data);
+	}
+	
+	public function TotalvideoCount()
+	{
+		$this->db->select('COUNT(*) as count');
+		$this->db->from('videogallery');
+		$this->db->where('xdelete',0);
+		$this->db->where('status',0);
+		$query = $this->db->get(); 
+		return $result = $query->result();
 	}
 	
 	public function getVideoById($id)

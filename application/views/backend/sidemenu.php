@@ -44,9 +44,24 @@ function bn_date($str)
                         SNRD
                     </div>
                 </li>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Dashboard'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
+				{
+				?>
 				<li>
                     <a href="<?=site_url('Dashboard');?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
+				<?php
+				}
+				?>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
+				{
+				?>
 				<li>
                     <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Users</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
@@ -55,8 +70,13 @@ function bn_date($str)
 					</ul>
                 </li>
 				<?php
-				$userid = $this->session->userdata('slno');
-				{  
+				}
+				?>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Menumanagement'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
+				{
 				?>
 				<li>
                     <a href="<?=site_url('Menumanagement');?>"><i class="fa fa-bars"></i> <span class="nav-label">Menu Management</span>  </a>
@@ -64,17 +84,46 @@ function bn_date($str)
 				<?php
 				}
 				?>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Breaking'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
+				{
+				?>
 				<li>
                     <a href="<?=site_url('Breaking');?>"><i class="fa fa-rocket"></i> <span class="nav-label">Breaking Upload</span>  </a>
                 </li>
+				<?php
+				}
+				?>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'News'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
+				{
+				?>
 				<li>
                     <a href="<?=site_url('News');?>"><i class="fa fa-file-text-o"></i> <span class="nav-label">Add New News</span>  </a>
                 </li>
+				<?php
+				}
+				?>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'News'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
+				{
+				?>
 				<li>
                     <a href="<?=site_url('NewsAuthentication');?>"><i class="fa fa-newspaper-o"></i> <span class="nav-label">News Dashboard</span>  </a>
                 </li>
 				<?php
-				if($this->session->userdata("status") == "ADMIN")
+				}
+				?>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Right Side Tab'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
 				{
 				?>
 				<li>
@@ -86,27 +135,11 @@ function bn_date($str)
                 </li>
 				<?php
 				}
-				else if($this->session->userdata("status") == "MANAGER")
-				{
-				?>
-				<li>
-                    <a href="#"><i class="fa fa-object-group"></i> <span class="nav-label">Special News Tab</span><span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li><a href="<?=site_url('RightsideTab');?>"><i class="fa fa-plus"></i> <span class="nav-label">News Tab Create</span></a></li>
-                        <li><a href="<?=site_url('RightsideTab/RightsideTabView');?>"><i class="fa fa-list-ul"></i>Tab List</a></li>
-                    </ul>
-                </li>
-				<?php
-				}
-				else if($this->session->userdata("status") == "USER")
-				{
-				?>
-				
-				<?php
-				}
 				?>
 				<?php
-				if($this->session->userdata("status") == "ADMIN")
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Advertisement'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
 				{
 				?>
 				<li>
@@ -118,76 +151,103 @@ function bn_date($str)
                 </li>
 				<?php
 				}
-				else if($this->session->userdata("status") == "MANAGER")
-				{
 				?>
-				<li>
-                    <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label">Advertisement</span><span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li><a href="<?=site_url('Advertise');?>"><i class="fa fa-plus"></i> <span class="nav-label">Advertisement Create</span></a></li>
-                        <li><a href="<?=site_url('Advertise/AdvertiseView');?>"><i class="fa fa-list-ul"></i>Advertisement List</a></li>
-                    </ul>
-                </li>
 				<?php
-				}
-				else if($this->session->userdata("status") == "USER")
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Video'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
 				{
-				?>
-				
-				<?php
-				}
 				?>
 				<li>
                     <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Media Gallery</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
+					<?php
+					$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Image'  ");
+					$permission = $q->result();
+					if($permission[0]->m_status == 0)
+					{
+					?>
                         <li><a href="#"><i class="fa fa-file-image-o"></i> <span class="nav-label">Gallery Image</span><span class="fa arrow"></span></a>
 							<ul class="nav nav-third-level collapse">
 								<li><a href="<?=site_url('GalleryImage');?>"><i class="fa fa-plus"></i> <span class="nav-label">Gallery Image Add</span></a></li>
 								<li><a href="<?=site_url('GalleryImage/GalleryImageView');?>"><i class="fa fa-list-ul"></i>Gallery Image View</a></li>
 							</ul>
 						</li>
+						<?php
+						}
+						?>
+						<?php
+						$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Video'  ");
+						$permission = $q->result();
+						if($permission[0]->m_status == 0)
+						{
+						?>
                         <li><a href="<?=site_url('Video');?>"><i class="fa fa-video-camera"></i>Gallery Video</a></li>
+						<?php
+						}
+						?>
                     </ul>
                 </li>
 				<?php
-				if($this->session->userdata("status") == "ADMIN")
+				}
+				?>
+				<?php
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User Permission'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
 				{
 				?>
-                <li>
+				<li>
                     <a href="#"><i class="fa fa-check-square"></i> <span class="nav-label">Permission</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
+					<?php
+					$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Permission Category'  ");
+					$permission = $q->result();
+					if($permission[0]->m_status == 0)
+					{
+					?>
                         <li><a href="#"><i class="fa fa-check"></i><span class="nav-label">Permission Category</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level collapse">
 								<li><a href="<?=site_url('PermissionCategory');?>"><i class="fa fa-plus"></i> <span class="nav-label">Add Permission Category</span></a></li>
 								<li><a href="<?=site_url('PermissionCategoryAssign');?>"><i class="fa fa-list"></i>Assign Permission Category</a></li>
 							</ul>
+						</li>
+						<?php
+						}
+						?>
+						<?php
+						$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User Permission'  ");
+						$permission = $q->result();
+						if($permission[0]->m_status == 0)
+						{
+						?>
                         <li><a href="#"><i class="fa fa-check"></i><span class="nav-label">User Permission</span><span class="fa arrow"></span></a>
 							<ul class="nav nav-third-level collapse">
 								<li><a href="<?=site_url('UserPermission');?>"><i class="fa fa-plus"></i> <span class="nav-label">Add Permission</span></a></li>
 								<li><a href="<?=site_url('UserPermission/PermissionView');?>"><i class="fa fa-list-ul"></i>PermissionView</a></li>
 							</ul>
 						</li>
+						<?php
+						}
+						?>
+						<li><a href="<?=site_url('MenuPermission');?>"><i class="fa fa-check"></i><span class="nav-label">Menu Permission</span></a></li>
                     </ul>
                 </li>
 				<?php
 				}
-				else if($this->session->userdata("status") == "MANAGER")
-				{
 				?>
-				
 				<?php
-				}
-				else if($this->session->userdata("status") == "USER")
+				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Change Password'  ");
+				$permission = $q->result();
+				if($permission[0]->m_status == 0)
 				{
-				?>
-				
-				<?php
-				}
 				?>
 				<li>
                     <a href="<?=site_url('Changepassword');?>"><i class="fa fa-unlock"></i> <span class="nav-label">Change Password</span>  </a>
                 </li>
-                
+				<?php
+				}
+				?>                
             </ul>
 
         </div>

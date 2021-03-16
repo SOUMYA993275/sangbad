@@ -31,6 +31,8 @@ class Dashboard extends CI_Controller {
 				{
 					$date = date('m/d/Y');
 					$data['totaluser'] = $this->Adminmodel->TotalUser();
+					$data['totalimage'] = $this->Adminmodel->TotalImageCount();
+					$data['totalvideo'] = $this->Adminmodel->TotalvideoCount();
 					$data['totalnews'] = $this->Adminmodel->TotalNewsbyDate($date);
 					//print_r($data);
 					//exit;

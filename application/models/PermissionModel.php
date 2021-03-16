@@ -664,13 +664,27 @@ class PermissionModel extends CI_Model
 		return $result = $query->row();
 	}
 	
-	public function MenuPermission($userid,$page)
+	public function CheckMenu($page,$user)
 	{
-		$this->db->select('m_status');
+		$this->db->select('*');
 		$this->db->from('menu_permission');
-		$this->db->where('user_id', $userid);
-		$this->db->where('menu_name', $page);
+		$this->db->where('menu_name',$page);
+		$this->db->where('user_id',$user);
 		$query = $this->db->get(); 
-		return $result = $query->row();
+		return $result = $query->result();
 	}
+	
+	public function InsertMenu($data)
+	{
+		$this->db->set('doc','NOW()', FALSE);
+		$this->db->insert('menu_permission',$data);
+	}
+	
+	public function UpdateMenuDetails($data,$id)
+	{
+		$this->db->set('dom','NOW()', FALSE);
+		$this->db->where('id',$id);
+		$this->db->update('menu_permission',$data);
+	}
+	
 }

@@ -412,4 +412,67 @@ class DataModel extends CI_Model
 		 return $response; 
 	}
 	
+	function getMenuP($postData=null)
+	{
+
+		 $response = array();
+
+		 ## Read value
+		 $draw = $postData['draw'];
+		 $start = $postData['start'];
+		 $rowperpage = $postData['length']; // Rows display per page
+		 $columnIndex = $postData['order'][0]['column']; // Column index
+		 $columnName = $postData['columns'][$columnIndex]['data']; // Column name
+		 $columnSortOrder = $postData['order'][0]['dir']; // asc or desc
+		 $searchValue = $postData['search']['value']; // Search value
+
+		 ## Search 
+		 $searchQuery = "";
+		 if($searchValue != ''){
+			$searchQuery = " (menu_permission.menu_name like '%".$searchValue."%') ";
+		 }
+
+		 ## Total number of records without filtering
+		 $this->db->select('count(*) as allcount');
+		 $records = $this->db->get('menu_permission')->result();
+		 $totalRecords = $records[0]->allcount;
+
+		 ## Total number of record with filtering
+		 $this->db->select('count(*) as allcount');
+		 if($searchQuery != '')
+		 $this->db->where($searchQuery);
+		 $records = $this->db->get('menu_permission')->result();
+		 $totalRecordwithFilter = $records[0]->allcount;
+
+		 ## Fetch records
+		 $this->db->select('menu_permission.menu_name as mname,users.name as uname,menu_permission.id as mid,menu_permission.m_status as mstatus');
+		 $this->db->join('users','users.slno = menu_permission.user_id','LEFT');
+		 if($searchQuery != '')
+		 $this->db->where($searchQuery);
+		 $this->db->order_by($columnName, $columnSortOrder);
+		 $this->db->limit($rowperpage, $start);
+		 $records = $this->db->get('menu_permission')->result();
+		 $data = array();
+
+		 foreach($records as $record ){
+
+			$data[] = array( 
+			   "mname"=>$record->mname,
+			   "uname"=>$record->uname,
+			   "mid"=>$record->mid,
+			   "mstatus"=>$record->mstatus,
+			); 
+		 }
+
+		 ## Response
+		 $response = array(
+			"draw" => intval($draw),
+			"iTotalRecords" => $totalRecords,
+			"iTotalDisplayRecords" => $totalRecordwithFilter,
+			"aaData" => $data
+		 );
+
+		 return $response; 
+	}
+	
 }
