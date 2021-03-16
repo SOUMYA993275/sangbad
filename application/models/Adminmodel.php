@@ -87,16 +87,6 @@ class Adminmodel extends CI_Model
 		return $result = $query->result();
 	}
 	
-	public function getUserIdnotequal($id)
-	{
-		$this->db->select('*');
-		$this->db->from('users');
-		$this->db->where('xdelete',0);
-		$this->db->where('slno',$id);
-		$query = $this->db->get(); 
-		return $result = $query->result();
-	}
-	
 	public function UpdateUsers($data,$id)
 	{
 		$this->db->set('dom','NOW()', FALSE);

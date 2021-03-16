@@ -43,7 +43,7 @@
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-9">
-                    <h2>Add User</h2>
+                    <h2>Edit User</h2>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
                             <a href="<?=site_url('Dashboard');?>">Home</a>
@@ -52,7 +52,7 @@
                             User
                         </li>
                         <li class="breadcrumb-item active">
-                            <strong>Add User</strong>
+                            <strong>Edit User</strong>
                         </li>
                     </ol>
                 </div>
@@ -112,7 +112,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Email *</label>
-                                                <input id="email" name="email" type="email" placeholder="Enter Email" value="<?=$mn->email;?>" class="form-control required">
+                                                <input id="email" name="email" type="email" readonly placeholder="Enter Email" value="<?=$mn->email;?>" class="form-control required">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

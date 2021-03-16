@@ -268,11 +268,6 @@ class User extends CI_Controller {
 					if($uactive->nstatus == '0')
 					{
 						$id = $this->input->post('id');
-						$email = $this->input->post('email');
-						$result = $this->Adminmodel->getUserIdnotequal($id);
-						if($result->email != $email)
-						{	
-								$id = $this->input->post('id');
 								$imgup = $this->input->post('imagechange');
 								$data['userdetails'] = $this->Adminmodel->getUserbyId($id);
 								if($imgup == 1)
@@ -394,12 +389,6 @@ class User extends CI_Controller {
 											$this->session->set_flashdata('message6','message6');
 											redirect("User");
 								}
-						}
-						else
-						{
-							$this->session->set_flashdata('message2','message2');
-							redirect("User/edituser/$id");
-						}
 					}
 					else
 					{
