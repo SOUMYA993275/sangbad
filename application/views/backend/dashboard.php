@@ -74,6 +74,12 @@
 							</div></a>
                         </div>
                     </div>
+					<?php
+						$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User Permission'  ");
+						$permission = $q->result();
+						if($permission[0]->m_status == 0)
+						{
+						?>
                     <div class="col-lg-3">
                         <div class="ibox ">
 						<?php
@@ -92,6 +98,9 @@
                             </div></a>
                         </div>
                     </div>
+					<?php
+						}
+						?>
                     <div class="col-lg-3">
                         <div class="ibox ">
 						<?php
@@ -110,9 +119,7 @@
                             </div></a>
                         </div>
 					</div>
-        </div>
-		<div class="row">
-                    <div class="col-lg-3">
+					<div class="col-lg-3">
                         <div class="ibox ">
 							<?php
 							$gvcount='';
@@ -131,14 +138,14 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="ibox ">
+						<div class="ibox ">
                             <div class="ibox-title">
-                               <h1 class="label label-primary float-left">Todays News</h1>
+                               <h1 class="label label-primary float-left">Total Subscriber</h1>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">20 </h1>
+                                <h1 class="no-margins">12</h1>
                                 <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small><?php echo bn_date(date('l, d M, Y'));?></small>
+                                <small>Active User</small>
                             </div>
                         </div>
                     </div>
@@ -166,7 +173,7 @@
                             </div>
                         </div>
             </div>
-        </div>
+		</div>
         <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox ">
@@ -225,6 +232,7 @@
 				<?php include_once ('footer.php');?>
 			</div>
         </div>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script>
     $(window).load(function(){
@@ -270,7 +278,27 @@
 
     <!-- Sparkline demo data  -->
     <script src="<?=base_url();?>js/demo/sparkline-demo.js"></script>
-	
+<script>
+$(document).ready(function() {
+var data = "$http_header = array( \r\n    \"Content-Type: Application/Json\", \r\n    \"webpushrKey: ed71c584ce2983d8d9a79ddfd5f27045\", \r\n    \"webpushrAuthToken: 21230\"\r\n);";
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("GET", "https://api.webpushr.com/v1/site/subscriber_count");
+xhr.setRequestHeader("webpushrKey", "ed71c584ce2983d8d9a79ddfd5f27045");
+xhr.setRequestHeader("webpushrAuthToken", "21230");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.send(data);
+});
+</script>
     <script>
         $(document).ready(function() {
             $('.chart').easyPieChart({

@@ -1,5 +1,4 @@
-
-	<nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+<nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
             <form name="counter"><input type="text" size="5" name="timer" disabled="disabled" /></form> 
@@ -17,14 +16,19 @@
                                     <div class="modal-content animated flipInY">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <img style="width: 120px;height: 92px;" src="<?=base_url();?>Uploads/general/signout.png">
+                                            <div class="swal-icon swal-icon--error">
+											<span class="swal-icon--error__x-mark">
+											<span class="swal-icon--error__line swal-icon--error__line--left"></span>
+											<span class="swal-icon--error__line swal-icon--error__line--right"></span>
+											</span>
+											</div>
                                         </div>
                                         <div class="modal-body">
                                             <p style="text-align: center;"><h2>Are You Sure, Do You Want to <strong>Log Out?</strong></h2></p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                            <a href="<?=site_url('admin/logout');?>"><button type="button" class="btn btn-primary">Log Out</button></a>
+                                            <a href="<?=site_url('admin/logout');?>"><button type="button" class="btn btn-info">Log Out</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -89,3 +93,8 @@ function startCountDown()
 
 --> 
 </script>
+<!-- start webpushr tracking code --> 
+<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";
+fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
+webpushr('setup',{'key':'BDKHuvzPKGnegbHFHVGIc9EhHm0LT9D2eJGHHLmGAbJ2TIQOYIBnNB_-msDaYTJk6L0MMLaY5O_Lu8JQVApp2ig' });</script>
+<!-- end webpushr tracking code -->

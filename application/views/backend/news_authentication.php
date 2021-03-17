@@ -66,13 +66,17 @@
                         <div class="modal-content animated flipInY">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            </div>
+                            <div class="swal-icon swal-icon--warning">
+											<span class="swal-icon--warning__body"></span>
+											<span class="swal-icon--warning__dot" style="bottom: 10px;"></span>
+											</div>
+							</div>
                             <div class="modal-body">
-                                <p style="text-align: center;"><h2>Are You Sure, Do You Want to go<strong>External Page?</strong></h2></p>
+                                <p style="text-align: center;"><h2>Are You Sure, Do You Want to go <strong>External Page?</strong></h2></p>
                             </div>
                             <div class="modal-footer" style="text-align: center;">
                                 <a href="<?=site_url('News');?>"><button type="button" class="btn btn-primary">News</button></a>
-                                <a href="<?=site_url('Breaking');?>"><button type="button" class="btn btn-primary">Breaking</button></a>
+                                <a href="<?=site_url('Breaking');?>"><button type="button" class="btn btn-warning">Breaking</button></a>
                             </div>
                         </div>
 					</div>

@@ -101,7 +101,7 @@
 							if($mn->nstatus==1)
 							{
 							?>
-							<button onclick="activeuser('<?=$mn->slno;?>')" type="button" class="btn btn-success fa fa-check-circle-o"></button>
+							<button onclick="activeuser('<?=$mn->slno;?>')" type="button" class="btn btn-primary fa fa-check-circle-o"></button>
 							<?php
 							}
 							else if($mn->nstatus==0)
@@ -114,7 +114,8 @@
 							
                             <button onclick="edituser('<?=$mn->slno;?>')" type="button" class="btn btn-info fa fa-pencil"></button>
                             <button onclick="deleteuser('<?=$mn->slno;?>')" type="button" class="btn btn-danger fa fa-trash"></button>
-                        </div>
+							<button type="button" data-toggle="modal" data-target="#myModal20" class="btn btn-success fa fa-eye"></button>
+						</div>
                     </div>
 
                 </div>
@@ -128,6 +129,26 @@
 
         </div>
         </div>
+		<div class="modal inmodal" id="myModal20" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated flipInY">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <div class="swal-icon swal-icon--warning">
+											<span class="swal-icon--warning__body"></span>
+											<span class="swal-icon--warning__dot" style="bottom: 10px;"></span>
+											</div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="text-align: center;"><h2>Please allow the permission of this user, otherwise they can't use the system<strong></strong></h2></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="<?=site_url('MenuPermission');?>"><button type="button" class="btn btn-primary">Menu Permission</button></a>
+                                            <a href="<?=site_url('UserPermission');?>"><button type="button" class="btn btn-warning">User Permission</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script>
     $(window).load(function(){
