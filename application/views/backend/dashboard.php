@@ -279,24 +279,22 @@
     <!-- Sparkline demo data  -->
     <script src="<?=base_url();?>js/demo/sparkline-demo.js"></script>
 <script>
-$(document).ready(function() {
-var data = "$http_header = array( \r\n    \"Content-Type: Application/Json\", \r\n    \"webpushrKey: ed71c584ce2983d8d9a79ddfd5f27045\", \r\n    \"webpushrAuthToken: 21230\"\r\n);";
+$( document ).ready(function() {
+var settings = {
+  "url": "https://api.webpushr.com/v1/site/subscriber_count",
+  "method": "GET",
+  //"timeout": 0,
+  "headers": {
+    "webpushrKey": "ed71c584ce2983d8d9a79ddfd5f27045",
+    "webpushrAuthToken": "21230",
+    "Content-Type": "application/json"
+  },
+  //"data": "{ \r\n    \"Content-Type: Application/Json\", \r\n    \"webpushrKey: ed71c584ce2983d8d9a79ddfd5f27045\", \r\n    \"webpushrAuthToken: 21230\"\r\n}",
+};
 
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-    console.log(this.responseText);
-  }
+$.ajax(settings).done(function (response) {
+  console.log(response);
 });
-
-xhr.open("GET", "https://api.webpushr.com/v1/site/subscriber_count");
-xhr.setRequestHeader("webpushrKey", "ed71c584ce2983d8d9a79ddfd5f27045");
-xhr.setRequestHeader("webpushrAuthToken", "21230");
-xhr.setRequestHeader("Content-Type", "application/json");
-
-xhr.send(data);
 });
 </script>
     <script>
@@ -518,7 +516,7 @@ setInterval( function() { clock.innerHTML = getTime(); }, 1000 );
 						<script>
 							swal({
 							  title: "Success",
-							  text: "Login Successfully",
+							  text: "<?=$this->session->flashdata('message3');?>",
 							  icon: "success",
 							  button: false,
 							  timer: "1500",

@@ -19,8 +19,6 @@
 	<link href="<?=base_url();?>css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
     <link href="<?=base_url();?>css/plugins/summernote/summernote-bs4.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
-
-
 </head>
 <style>
 
@@ -253,7 +251,7 @@
 	<!-- SUMMERNOTE -->
     <script src="<?=base_url();?>js/plugins/summernote/summernote-bs4.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script>
+<script>
         $(document).ready(function(){
 
             $('.summernote').summernote();

@@ -236,8 +236,15 @@
 													}
 													?>
 													<button onclick="deletenews('<?=$an->slno;?>')" type="button" title="Delete News" class="btn btn-danger fa fa-trash"></button>
+													<?php
+													if($an->category != 'Breaking')
+													{
+													?>
 													<a href="" target="blank"><button  type="button" title="View Advertisement" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>
 													<button type="button" title="News Reading Count" class="btn btn-danger" disabled='true' style='border: 2px solid blue;background: #562808;border-radius: 14px;'>12</button>
+													<?php
+													}
+													?>
 											</td>
 										</tr>
 									</tbody>

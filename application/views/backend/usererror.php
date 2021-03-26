@@ -45,7 +45,7 @@ if($this->session->flashdata('failed3') != '')
 <script>
 swal({
   title: "Oops!",
-  text: "You have not permission to access this page",
+  text: "<?=$this->session->flashdata('failed3');?>",
   icon: "error",
   button: false,
   timer: "1500",

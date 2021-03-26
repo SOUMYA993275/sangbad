@@ -17,7 +17,7 @@ class ErrorUserbyPermission extends CI_Controller {
 	
 	public function index()
 	{
-		$this->session->set_flashdata('failed3','failed3');
+		$this->session->set_flashdata('failed3','You have not permission to access this page');
 		$this->load->view('backend/usererror');
 	}
 }

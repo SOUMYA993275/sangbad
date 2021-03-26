@@ -7106,14 +7106,16 @@ $$1.summernote = $$1.extend($$1.summernote, {
         otherStaticBar: '',
         // toolbar
         toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+			['height', ['height']],
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
+            ['view', ['codeview', 'help']]
         ],
         // popover
         popatmouse: true,
@@ -7158,7 +7160,7 @@ $$1.summernote = $$1.extend($$1.summernote, {
             'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
         ],
         fontNames: [
-            'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
+            'Arial', 'Sangbad', 'Arial Black', 'Comic Sans MS', 'Courier New',
             'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
             'Tahoma', 'Times New Roman', 'Verdana'
         ],

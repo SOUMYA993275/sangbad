@@ -89,7 +89,7 @@
 														<select class="form-control" name="menustatus" id="menustatus" required>
 															<option value="">Select Status</option>
 															<option value="Active" <?php if($menudetails[0]->status =="Active") echo 'selected="selected"'; ?>>Active</option>
-															<option value="Inactive" <?php if($menudetails[0]->status =="Inctive") echo 'selected="selected"'; ?>>Inactive</option>
+															<option value="Inactive" <?php if($menudetails[0]->status =="Inactive") echo 'selected="selected"'; ?>>Inactive</option>
 														<select>
 													</div>
 												</div>

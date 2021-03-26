@@ -98,7 +98,7 @@ class Admin extends CI_Controller {
 								$image = $this->session->userdata('image');
 								$ltdate= $this->session->userdata('lastlogintime');
 								$this->Adminmodel->LastLoginTimeUpdate($id);
-								$this->session->set_flashdata('message3','message3');
+								$this->session->set_flashdata('message3','Login Successfully');
 								redirect("Dashboard");
 							}
 							else
