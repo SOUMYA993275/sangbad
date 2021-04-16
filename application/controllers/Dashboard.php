@@ -30,15 +30,6 @@ class Dashboard extends CI_Controller {
 				if($Dashboard->u_status == '0')
 				{
 					$date = date('m/d/Y');
-					$this->load->library('user_agent');
-					$data['browser'] = $this->agent->browser();
-					$data['browserVersion'] = $this->agent->version();
-					$data['platform'] = $this->agent->platform();
-					$data['full_user_agent_string'] = $this->input->ip_address();
-					if ($this->agent->is_browser())
-					{
-						$data['agent'] = $this->agent->browser().' '.$this->agent->version();
-					}
 					$data['totaluser'] = $this->Adminmodel->TotalUser();
 					$data['totalimage'] = $this->Adminmodel->TotalImageCount();
 					$data['totalvideo'] = $this->Adminmodel->TotalvideoCount();

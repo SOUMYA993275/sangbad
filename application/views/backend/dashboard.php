@@ -56,6 +56,21 @@
                             </div>
                         </div>
                     </div>
+                    <?php
+                    if($menu='News')
+                    {
+                    $this->load->model('Adminmodel');
+                    $userid = $this->session->userdata('slno');
+                    $usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+                    }
+                    else
+                    {
+                        
+                    }
+                    foreach($usercheck as $uc)
+                    if($uc->m_status == 0)
+                    {
+                    ?>
 					<div class="col-lg-3">
                         <div class="ibox ">
 						<?php
@@ -74,12 +89,24 @@
 							</div></a>
                         </div>
                     </div>
+                    <?php
+                    }
+                    ?>
 					<?php
-						$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User Permission'  ");
-						$permission = $q->result();
-						if($permission[0]->m_status == 0)
-						{
-						?>
+                    if($menu='User')
+                    {
+                    $this->load->model('Adminmodel');
+                    $userid = $this->session->userdata('slno');
+                    $usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+                    }
+                    else
+                    {
+                        
+                    }
+                    foreach($usercheck as $uc)
+                    if($uc->m_status == 0)
+                    {
+                    ?>
                     <div class="col-lg-3">
                         <div class="ibox ">
 						<?php
@@ -99,8 +126,23 @@
                         </div>
                     </div>
 					<?php
-						}
-						?>
+					}
+					?>
+                    <?php
+                    if($menu='Image')
+                    {
+                    $this->load->model('Adminmodel');
+                    $userid = $this->session->userdata('slno');
+                    $usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+                    }
+                    else
+                    {
+                        
+                    }
+                    foreach($usercheck as $uc)
+                    if($uc->m_status == 0)
+                    {
+                    ?>
                     <div class="col-lg-3">
                         <div class="ibox ">
 						<?php
@@ -119,6 +161,24 @@
                             </div></a>
                         </div>
 					</div>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    if($menu='Video')
+                    {
+                    $this->load->model('Adminmodel');
+                    $userid = $this->session->userdata('slno');
+                    $usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+                    }
+                    else
+                    {
+                        
+                    }
+                    foreach($usercheck as $uc)
+                    if($uc->m_status == 0)
+                    {
+                    ?>
 					<div class="col-lg-3">
                         <div class="ibox ">
 							<?php
@@ -137,6 +197,9 @@
                             </div></a>
                         </div>
                     </div>
+                    <?php
+                    }
+                    ?>
                     <div class="col-lg-3">
 						<div class="ibox ">
                             <div class="ibox-title">
@@ -278,25 +341,6 @@
 
     <!-- Sparkline demo data  -->
     <script src="<?=base_url();?>js/demo/sparkline-demo.js"></script>
-<script>
-$( document ).ready(function() {
-var settings = {
-  "url": "https://api.webpushr.com/v1/site/subscriber_count",
-  "method": "GET",
-  //"timeout": 0,
-  "headers": {
-    "webpushrKey": "ed71c584ce2983d8d9a79ddfd5f27045",
-    "webpushrAuthToken": "21230",
-    "Content-Type": "application/json"
-  },
-  //"data": "{ \r\n    \"Content-Type: Application/Json\", \r\n    \"webpushrKey: ed71c584ce2983d8d9a79ddfd5f27045\", \r\n    \"webpushrAuthToken: 21230\"\r\n}",
-};
-
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});
-});
-</script>
     <script>
         $(document).ready(function() {
             $('.chart').easyPieChart({

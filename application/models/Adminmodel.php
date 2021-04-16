@@ -456,5 +456,16 @@ class Adminmodel extends CI_Model
 		$query = $this->db->get(); 
 		return $result = $query->result();
 	}
+
+	public function menupermissioncheck($userid,$menu)
+	{
+		$this->db->select('*');
+		$this->db->from('menu_permission');
+		$this->db->where('user_id',$userid);
+		$this->db->where('menu_name',$menu);
+		$query = $this->db->get(); 
+		return $result = $query->result();
+	}
+	
 	
 }

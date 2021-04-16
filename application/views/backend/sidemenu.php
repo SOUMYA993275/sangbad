@@ -37,7 +37,7 @@ function bn_date($str)
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a class="dropdown-item" href="<?=site_url("Profile");?>">Profile</a></li>
                             <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="<?=site_url('admin/logout');?>">Logout</a></li>
+                            <li><a class="dropdown-item" data-toggle="modal" data-target="#myModal2">Logout</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">
@@ -45,9 +45,18 @@ function bn_date($str)
                     </div>
                 </li>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Dashboard'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='Dashboard')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -57,9 +66,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='User')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -73,9 +91,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Menumanagement'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='Menumanagement')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -85,9 +112,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Breaking'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='Breaking')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -97,9 +133,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'News'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='News')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -109,9 +154,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'News'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='News')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -121,9 +175,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Right Side Tab'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='Right Side Tab')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -137,9 +200,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Advertisement'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='Advertisement')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
@@ -153,18 +225,36 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Video'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='Video')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
                     <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Media Gallery</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
 					<?php
-					$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Image'  ");
-					$permission = $q->result();
-					if($permission[0]->m_status == 0)
+					if($menu='Image')
+					{
+					$this->load->model('Adminmodel');
+					$userid = $this->session->userdata('slno');
+					$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+					}
+					else
+					{
+						
+					}
+					foreach($usercheck as $uc)
+					if($uc->m_status == 0)
 					{
 					?>
                         <li><a href="#"><i class="fa fa-file-image-o"></i> <span class="nav-label">Gallery Image</span><span class="fa arrow"></span></a>
@@ -177,9 +267,18 @@ function bn_date($str)
 						}
 						?>
 						<?php
-						$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Video'  ");
-						$permission = $q->result();
-						if($permission[0]->m_status == 0)
+						if($menu='Video')
+						{
+						$this->load->model('Adminmodel');
+						$userid = $this->session->userdata('slno');
+						$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+						}
+						else
+						{
+							
+						}
+						foreach($usercheck as $uc)
+						if($uc->m_status == 0)
 						{
 						?>
                         <li><a href="<?=site_url('Video');?>"><i class="fa fa-video-camera"></i>Gallery Video</a></li>
@@ -192,18 +291,36 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User Permission'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='User Permission')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
                     <a href="#"><i class="fa fa-check-square"></i> <span class="nav-label">Permission</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
 					<?php
-					$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Permission Category'  ");
-					$permission = $q->result();
-					if($permission[0]->m_status == 0)
+					if($menu='Permission Category')
+					{
+					$this->load->model('Adminmodel');
+					$userid = $this->session->userdata('slno');
+					$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+					}
+					else
+					{
+						
+					}
+					foreach($usercheck as $uc)
+					if($uc->m_status == 0)
 					{
 					?>
                         <li><a href="#"><i class="fa fa-check"></i><span class="nav-label">Permission Category</span><span class="fa arrow"></span></a>
@@ -216,9 +333,18 @@ function bn_date($str)
 						}
 						?>
 						<?php
-						$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'User Permission'  ");
-						$permission = $q->result();
-						if($permission[0]->m_status == 0)
+						if($menu='User Permission')
+						{
+						$this->load->model('Adminmodel');
+						$userid = $this->session->userdata('slno');
+						$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+						}
+						else
+						{
+							
+						}
+						foreach($usercheck as $uc)
+						if($uc->m_status == 0)
 						{
 						?>
                         <li><a href="#"><i class="fa fa-check"></i><span class="nav-label">User Permission</span><span class="fa arrow"></span></a>
@@ -237,9 +363,18 @@ function bn_date($str)
 				}
 				?>
 				<?php
-				$q = $this->db->query(" SELECT * FROM `menu_permission` WHERE `user_id` = '".$this->session->userdata("slno")."' AND `menu_name` = 'Change Password'  ");
-				$permission = $q->result();
-				if($permission[0]->m_status == 0)
+				if($menu='Change Password')
+				{
+				$this->load->model('Adminmodel');
+				$userid = $this->session->userdata('slno');
+				$usercheck = $this->Adminmodel->menupermissioncheck($userid,$menu);
+				}
+				else
+				{
+					
+				}
+				foreach($usercheck as $uc)
+				if($uc->m_status == 0)
 				{
 				?>
 				<li>
