@@ -206,7 +206,7 @@
                                <h1 class="label label-primary float-left">Total Subscriber</h1>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">12</h1>
+                                <h1 class="no-margins" id="subsc">12</h1>
                                 <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
                                 <small>Active User</small>
                             </div>
@@ -527,12 +527,30 @@ return true;
 }
 });
 </script>
-<?php
+<script type="text/javascript">
+$(document).ready(function(){
+    $(function() {
+        var settings = {
+            "url": "https://api.webpushr.com/v1/site/subscriber_count",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "webpushrKey": "ed71c584ce2983d8d9a79ddfd5f27045",
+                "webpushrAuthToken": "21230",
+                "Content-Type": "Application/Json"
+            },
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            //"data": form
+            };
 
-date_default_timezone_set("Asia/Calcutta");
-$tz_time = date("F j, Y h:i:s");
-
-?>
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+    });
+});
+</script>
 <script type="text/javascript">
                         
 function getTime( ) {
@@ -552,22 +570,21 @@ function getTime( ) {
 var clock = document.getElementById('clock');
 setInterval( function() { clock.innerHTML = getTime(); }, 1000 );
 </script> 
-
-						<?php
-					if($this->session->flashdata('message3') != '')
-						{
-					?>
-						<script>
-							swal({
-							  title: "Success",
-							  text: "<?=$this->session->flashdata('message3');?>",
-							  icon: "success",
-							  button: false,
-							  timer: "1500",
-							});
-							</script>
-					<?php
-						}
-					?>
+<?php
+if($this->session->flashdata('message3') != '')
+{
+?>
+<script>
+swal({
+title: "Success",
+text: "<?=$this->session->flashdata('message3');?>",
+icon: "success",
+button: false,
+timer: "1500",
+});
+</script>
+<?php
+}
+?>
 </body>
 </html>
