@@ -311,6 +311,7 @@
 
     <!-- Flot -->
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.js"></script>
+    <script src="<?=base_url();?>js/plugins/webpush.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.tooltip.min.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.spline.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.resize.js"></script>
@@ -525,30 +526,6 @@ else
 {
 return true;
 }
-});
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $(function() {
-        var settings = {
-            "url": "https://api.webpushr.com/v1/site/subscriber_count",
-            "method": "GET",
-            "timeout": 0,
-            "headers": {
-                "webpushrKey": "ed71c584ce2983d8d9a79ddfd5f27045",
-                "webpushrAuthToken": "21230",
-                "Content-Type": "Application/Json"
-            },
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            //"data": form
-            };
-
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});
-    });
 });
 </script>
 <script type="text/javascript">
