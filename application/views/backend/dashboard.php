@@ -311,7 +311,7 @@
 
     <!-- Flot -->
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.js"></script>
-    <script src="<?=base_url();?>js/plugins/webpush.js"></script>
+    <!--script src="<?=base_url();?>js/plugins/webpush.js"></script-->
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.tooltip.min.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.spline.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.resize.js"></script>
@@ -342,6 +342,21 @@
 
     <!-- Sparkline demo data  -->
     <script src="<?=base_url();?>js/demo/sparkline-demo.js"></script>
+    <script>
+	$(document).ready(function(){
+		$.ajax({
+        url: "https://api.webpushr.com/v1/site/subscriber_count",
+        method: 'GET',
+        headers: {
+            "webpushrKey" : "c5f85f0c1f3d0de7a3a997c5e74b8fb3",
+            "webpushrAuthToken" : "28164",
+            "Content-Type" : "Application/Json"
+        }
+        }).done(function(data) {
+        $('#subsc').append(JSON.stringify(data))
+        });
+        });
+	</script>
     <script>
         $(document).ready(function() {
             $('.chart').easyPieChart({
