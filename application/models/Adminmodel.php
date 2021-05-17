@@ -69,7 +69,7 @@ class Adminmodel extends CI_Model
 		$this->db->where('xdelete',0);
 		$this->db->where('nstatus',0);
 		$query = $this->db->get(); 
-		return $result = $query->result();
+		return $result = $query->row();
 	}
 	
 	public function InsertUser($data)
@@ -154,7 +154,7 @@ class Adminmodel extends CI_Model
 		$this->db->where('nstatus',0);
 		$this->db->where('date',$date);
 		$query = $this->db->get(); 
-		return $result = $query->result();
+		return $result = $query->row();
 	}
 	
 	public function getNewsId()
@@ -322,7 +322,7 @@ class Adminmodel extends CI_Model
 		$this->db->where('xdelete',0);
 		$this->db->where('status',0);
 		$query = $this->db->get(); 
-		return $result = $query->result();
+		return $result = $query->row();
 	}
 	
 	public function UpdateImagelist($data,$id)
@@ -368,7 +368,7 @@ class Adminmodel extends CI_Model
 		$this->db->where('xdelete',0);
 		$this->db->where('status',0);
 		$query = $this->db->get(); 
-		return $result = $query->result();
+		return $result = $query->row();
 	}
 	
 	public function getVideoById($id)

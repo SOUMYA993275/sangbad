@@ -73,18 +73,11 @@
                     ?>
 					<div class="col-lg-3">
                         <div class="ibox ">
-						<?php
-						$ncount='';
-						foreach($totalnews as $news)
-						{
-							$ncount = $news->count;
-						}
-						?>
                             <div class="ibox-title">
                                <h1 class="label label-warning float-left">Todays News</h1>
                             </div>
                             <a href="<?=site_url('NewsAuthentication');?>"><div class="ibox-content">
-                                <h1 class="no-margins"><?=$ncount;?> </h1>
+                                <h1 class="no-margins">1</h1>
                                 <small>Published News</small>
 							</div></a>
                         </div>
@@ -109,18 +102,11 @@
                     ?>
                     <div class="col-lg-3">
                         <div class="ibox ">
-						<?php
-						$ucount='';
-						foreach($totaluser as $tdn)
-						{
-							$ucount = $tdn->count;
-						}
-						?>
-                            <div class="ibox-title">
+						    <div class="ibox-title">
                                 <h1 class="label label-primary float-left">Total Users</h1>
                             </div>
                             <a href="<?=site_url('User');?>"><div class="ibox-content">
-                                <h1 class="no-margins"><?=$ucount;?></h1>
+                                <h1 class="no-margins">2</h1>
                                 <small>Registered User</small>
                             </div></a>
                         </div>
@@ -145,18 +131,11 @@
                     ?>
                     <div class="col-lg-3">
                         <div class="ibox ">
-						<?php
-						$gicount='';
-						foreach($totalimage as $tdn)
-						{
-							$gicount = $tdn->count;
-						}
-						?>
-                            <div class="ibox-title">
+						    <div class="ibox-title">
                                 <h1 class="label label-danger float-left">Total Images</h1>
                             </div>
                             <a href="<?=site_url('GalleryImage/GalleryImageView');?>"><div class="ibox-content">
-                                <h1 class="no-margins"><?=$gicount;?></h1>
+                                <h1 class="no-margins">3</h1>
                                 <small>Registered Image</small>
                             </div></a>
                         </div>
@@ -181,18 +160,11 @@
                     ?>
 					<div class="col-lg-3">
                         <div class="ibox ">
-							<?php
-							$gvcount='';
-							foreach($totalvideo as $tdn)
-							{
-								$gvcount = $tdn->count;
-							}
-							?>
-                            <div class="ibox-title">
+							<div class="ibox-title">
                                 <h1 class="label label-danger float-left">Total Video</h1>
                             </div>
                             <a href="<?=site_url('Video');?>"><div class="ibox-content">
-                                <h1 class="no-margins"><?=$gvcount;?></h1>
+                                <h1 class="no-margins">4</h1>
                                 <small>Active Video</small>
                             </div></a>
                         </div>
@@ -352,6 +324,17 @@
             "webpushrAuthToken" : "28164",
             "Content-Type" : "Application/Json"
         }
+        }).done(function(data) {
+        $('#subsce').append(JSON.stringify(data))
+        });
+        });
+	</script>
+    <script>
+	$(document).ready(function(){
+		$.ajax({
+        url: "<?php echo site_url('Api/index');?>",
+        method: 'GET',
+       
         }).done(function(data) {
         $('#subsc').append(JSON.stringify(data))
         });
