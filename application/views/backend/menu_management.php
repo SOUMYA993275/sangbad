@@ -169,7 +169,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 		$('.dataTables-example').DataTable({
-          'processing': '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>' ,
+          'processing': true ,
           'serverSide': true,
           'serverMethod': 'post',
           'ajax': {
@@ -199,7 +199,7 @@
 				{ targets : [4],
 				  render : function (data, type, row) {
 					switch(data) {
-					   case 'Active' : return '<img src="<?=base_url();?>/Uploads/general/active.gif" title="Active"/>'; break;
+					   case 'Active' : return '<img src="<?=base_url();?>/Uploads/general/active.gif" title="Active">'; break;
 					   case 'Inactive' : return '<img src="<?=base_url();?>/Uploads/general/inactive.gif" title="Inactive">'; break;
 					   default  : return 'N/A';
 					}
@@ -225,7 +225,7 @@
                     }
                 ]
         });
-     });
+	 });
      </script>
 	<script>
 			function headermenu(did)	
