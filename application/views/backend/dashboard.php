@@ -77,7 +77,7 @@
                                <h1 class="label label-warning float-left">Todays News</h1>
                             </div>
                             <a href="<?=site_url('NewsAuthentication');?>"><div class="ibox-content">
-                                <h1 class="no-margins">1</h1>
+                                <h1 class="no-margins" id="news"></h1>
                                 <small>Published News</small>
 							</div></a>
                         </div>
@@ -317,12 +317,14 @@
     <script>
 	$(document).ready(function(){
 		$.ajax({
-        url: "https://api.webpushr.com/v1/site/subscriber_count",
+        url: "http://api.webpushr.com/v1/site/subscriber_count",
         method: 'GET',
+        crossDomain: true,
         headers: {
             "webpushrKey" : "c5f85f0c1f3d0de7a3a997c5e74b8fb3",
             "webpushrAuthToken" : "28164",
-            "Content-Type" : "Application/Json"
+            "Content-Type" : "Application/Json",
+            'Access-Control-Allow-Origin': '*'
         }
         }).done(function(data) {
         $('#subsce').append(JSON.stringify(data))
@@ -338,7 +340,8 @@
             secrate_key : 'demokey'
         },
         }).done(function(data) {
-        $('#subsc').append(JSON.stringify(data))
+            let response = JSON.parse(data);
+        $('#news').html(response.details.news)
         });
         });
 	</script>
