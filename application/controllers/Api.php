@@ -20,46 +20,65 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     	}
     	
         // Testing 
-        function index(){
+        function DashboardCount(){
             $this->load->library('session');
             $this->load->model('Adminmodel');
             $this->load->model('PermissionModel');
-            $adminid = $this->session->userdata('username');
-            if($adminid != '')
+            $apikey = $this->input->post("secrate_key");
+            if($apikey!='')
             {
-                $adminid = $this->session->userdata('username');
-                $uactive = $this->Adminmodel->uactive($adminid);
-                if($uactive->nstatus == '0')
+                if($this->api_secrate_key == md5($apikey))
                 {
-                    $date = date('m/d/Y');
-					$totaluser = $this->Adminmodel->TotalUser();
-					$totalimage = $this->Adminmodel->TotalImageCount();
-					$totalvideo = $this->Adminmodel->TotalvideoCount();
-					$totalnews = $this->Adminmodel->TotalNewsbyDate($date);
-                    $totaluser1 = $totaluser->count;
-                    $totalimage1 = $totalimage->count;
-                    $totalvideo1 = $totalvideo->count;
-                    $totalnews1 = $totalnews->count;
-                        $data["status"] = 200;
-                        $data["message"] = "Data Successfully Fetched ";
-                        $data["details"] = array(
-                            'user' => $totaluser1,
-                            'image' => $totalimage1,
-                            'video' => $totalvideo1,
-                            'news' => $totalnews1,
-                        );
+                    $adminid = $this->session->userdata('username');
+                    if($adminid != '')
+                    {
+                        $adminid = $this->session->userdata('username');
+                        $uactive = $this->Adminmodel->uactive($adminid);
+                        if($uactive->nstatus == '0')
+                        {
+                            $date = date('m/d/Y');
+                            $totaluser = $this->Adminmodel->TotalUser();
+                            $totalimage = $this->Adminmodel->TotalImageCount();
+                            $totalvideo = $this->Adminmodel->TotalvideoCount();
+                            $totalnews = $this->Adminmodel->TotalNewsbyDate($date);
+                            $totaluser1 = $totaluser->count;
+                            $totalimage1 = $totalimage->count;
+                            $totalvideo1 = $totalvideo->count;
+                            $totalnews1 = $totalnews->count;
+                                $data["status"] = 200;
+                                $data["message"] = "Data Successfully Fetched ";
+                                $data["details"] = array(
+                                    'user' => $totaluser1,
+                                    'image' => $totalimage1,
+                                    'video' => $totalvideo1,
+                                    'news' => $totalnews1,
+                                );
+                        }
+                        else
+                        {
+                            $data["status"] = 403;
+                            $data["message"] = "User Authentication Failed";
+                            $data["details"] = [];
+                        }
+                    }
+                    else
+                    {
+                        $data["status"] = 400;
+                        $data["message"] = "Session Expired, Relogin Again";
+                        $data["details"] = [];
+                    }
                 }
                 else
                 {
-                    $data["status"] = 403;
-                    $data["message"] = "User Authentication Failed";
+                    $data["status"] = 400;
+                    $data["msg"] = "The 'secrate_key' is invalid!";
                     $data["details"] = [];
                 }
             }
             else
             {
-                $data["status"] = 400;
-                $data["message"] = "Session Expired, Relogin Again";
+                $data["status"] = 402;
+                $data["msg"] = "The 'secrate_key' can not be null or blank";
                 $data["details"] = [];
             }
             echo json_encode($data);
