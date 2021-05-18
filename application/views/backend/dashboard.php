@@ -317,7 +317,7 @@
     <script>
 	$(document).ready(function(){
 		$.ajax({
-        url: "http://api.webpushr.com/v1/site/subscriber_count",
+        url: "https://api.webpushr.com/v1/site/subscriber_count",
         method: 'GET',
         crossDomain: true,
         headers: {
