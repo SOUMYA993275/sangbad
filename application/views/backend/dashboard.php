@@ -332,7 +332,7 @@
     <script>
 	$(document).ready(function(){
 		$.ajax({
-        url: "<?php echo site_url('Api/index');?>",
+        url: "<?=site_url('Api/index');?>",
         method: 'GET',
        
         }).done(function(data) {
