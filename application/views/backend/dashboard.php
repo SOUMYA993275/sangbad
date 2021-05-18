@@ -331,11 +331,12 @@
 	</script>
     <script>
 	$(document).ready(function(){
-        var apikey = demokey;
-		$.ajax({
+        $.ajax({
         url: "<?=site_url('Api/DashboardCount');?>",
         method: 'POST',
-        data : {secrate_key: apikey},
+        data: {
+            secrate_key : 'demokey'
+        },
         }).done(function(data) {
         $('#subsc').append(JSON.stringify(data))
         });
