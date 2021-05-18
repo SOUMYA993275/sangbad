@@ -106,7 +106,7 @@
                                 <h1 class="label label-primary float-left">Total Users</h1>
                             </div>
                             <a href="<?=site_url('User');?>"><div class="ibox-content">
-                                <h1 class="no-margins">2</h1>
+                                <h1 class="no-margins" id="user"></h1>
                                 <small>Registered User</small>
                             </div></a>
                         </div>
@@ -135,7 +135,7 @@
                                 <h1 class="label label-danger float-left">Total Images</h1>
                             </div>
                             <a href="<?=site_url('GalleryImage/GalleryImageView');?>"><div class="ibox-content">
-                                <h1 class="no-margins">3</h1>
+                                <h1 class="no-margins" id="image"></h1>
                                 <small>Registered Image</small>
                             </div></a>
                         </div>
@@ -164,7 +164,7 @@
                                 <h1 class="label label-danger float-left">Total Video</h1>
                             </div>
                             <a href="<?=site_url('Video');?>"><div class="ibox-content">
-                                <h1 class="no-margins">4</h1>
+                                <h1 class="no-margins" id="video"></h1>
                                 <small>Active Video</small>
                             </div></a>
                         </div>
@@ -342,6 +342,9 @@
         }).done(function(data) {
             let response = JSON.parse(data);
         $('#news').html(response.details.news)
+        $('#user').html(response.details.user)
+        $('#image').html(response.details.image)
+        $('#video').html(response.details.video)
         });
         });
 	</script>
