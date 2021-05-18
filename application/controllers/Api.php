@@ -21,9 +21,6 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     	
         // Testing 
         function DashboardCount(){
-            $this->load->library('session');
-            $this->load->model('Adminmodel');
-            $this->load->model('PermissionModel');
             $apikey = $this->input->post("secrate_key");
             if($apikey!='')
             {
