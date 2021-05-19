@@ -144,7 +144,7 @@
                                         <th>Upload By</th>
                                         <th>Modified By</th>
 										<th>Status</th>
-                                        <th style="width: 150px;">Action</th>
+                                        <th style="width: 200px;">Action</th>
                                     </tr>
 								</thead>
 									<?php
@@ -206,7 +206,7 @@
 													}
 													?>
 											</td>
-											<td class="center">
+											<td class="center" style="text-align: center;">
 											<?php
 													if($an->nstatus==1) 
 													{ 
@@ -240,8 +240,8 @@
 													if($an->category != 'Breaking')
 													{
 													?>
-													<a href="" target="blank"><button  type="button" title="View Advertisement" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>
-													<button type="button" title="News Reading Count" class="btn btn-danger" disabled='true' style='border: 2px solid blue;background: #562808;border-radius: 14px;'>12</button>
+													<a href="" target="blank"><button  type="button" title="View News" style="background: hotpink; color:white;" class="btn fa fa-eye"></button></a>
+													<button type="button" title="News Reading Count" class="btn btn-danger" disabled='true' style='border: 3px solid yellow;background: #9f25de;border-radius: 14px;'>120</button>
 													<?php
 													}
 													?>
