@@ -283,7 +283,7 @@
 
     <!-- Flot -->
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.js"></script>
-    <script src="<?=base_url();?>js/plugins/App.js"></script>
+    <script src="<?=base_url();?>js/plugins/Dashboard.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.tooltip.min.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.spline.js"></script>
     <script src="<?=base_url();?>js/plugins/flot/jquery.flot.resize.js"></script>

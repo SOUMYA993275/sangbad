@@ -31,7 +31,7 @@ class Adminmodel extends CI_Model
 	
 	public function getblood()
 	{
-		$this->db->select('*');
+		$this->db->select('b_group');
 		$this->db->from('blood');
 		$query = $this->db->get(); 
 		return $result = $query->result();

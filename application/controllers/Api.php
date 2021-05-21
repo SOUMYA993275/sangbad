@@ -80,6 +80,58 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
             }
             echo json_encode($data);
             
-        }      
+        }
+        
+        function BloodGroup(){
+            $apikey = $this->input->post("secrate_key");
+            if($apikey!='')
+            {
+                if($this->api_secrate_key == md5($apikey))
+                {
+                    $adminid = $this->session->userdata('username');
+                    if($adminid != '')
+                    {
+                        $adminid = $this->session->userdata('username');
+                        $uactive = $this->Adminmodel->uactive($adminid);
+                        if($uactive->nstatus == '0')
+                        {
+                            $blood = $this->Adminmodel->getblood();
+                                $data["status"] = 200;
+                                $data["message"] = "Data Successfully Fetched ";
+                                $data["data"] = array(
+                                    'blood' => $blood
+                                );
+                                
+                        }
+                        else
+                        {
+                            $data["status"] = 403;
+                            $data["message"] = "User Authentication Failed";
+                            $data["data"] = [];
+                        }
+                    }
+                    else
+                    {
+                        $data["status"] = 400;
+                        $data["message"] = "Session Expired, Relogin Again";
+                        $data["data"] = [];
+                    }
+                }
+                else
+                {
+                    $data["status"] = 400;
+                    $data["msg"] = "The 'secrate_key' is invalid!";
+                    $data["data"] = [];
+                }
+            }
+            else
+            {
+                $data["status"] = 402;
+                $data["msg"] = "The 'secrate_key' can not be null or blank";
+                $data["data"] = [];
+            }
+            echo json_encode($data);
+            
+        }
         
     }
