@@ -191,8 +191,7 @@ class User extends CI_Controller {
 						}
 						else
 						{
-							$data['blood']=$this->Adminmodel->getblood();
-							$this->load->view('backend/add_user',$data);
+							$this->load->view('backend/add_user');
 						}
 					}
 					else
