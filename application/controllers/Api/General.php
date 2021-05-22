@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     //Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
     date_default_timezone_set("Asia/Calcutta");
       
-    class Api extends CI_Controller { 
+    class General extends CI_Controller { 
         
         protected $api_secrate_key = '0655e766e83ddc3e63883ef280a2fb44'; //demokey
         

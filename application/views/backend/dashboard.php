@@ -324,10 +324,10 @@
             "webpushrKey" : "c5f85f0c1f3d0de7a3a997c5e74b8fb3",
             "webpushrAuthToken" : "28164",
             "Content-Type" : "Application/Json",
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET',
-            //'Access-Control-Allow-Headers': "append,delete,entries,foreach,get,has,keys,set,values,Authorization"
-        }
+            "Access-Control-Allow-Origin" : '*',
+            "Access-Control-Allow-Methods" : 'GET',
+            "Access-Control-Allow-Headers" : '*'
+         }
         }).done(function(data)
         //console.log(data)
         {

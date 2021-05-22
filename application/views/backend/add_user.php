@@ -201,7 +201,7 @@
     <script>
     $(document).ready(function(){
     $.ajax({
-        url: "<?php echo site_url('Api/BloodGroup');?>",
+        url: "<?php echo site_url('Api/General/BloodGroup');?>",
         method: 'POST',
         data: {
             secrate_key : 'demokey'

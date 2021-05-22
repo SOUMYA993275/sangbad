@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $.ajax({
-        url: "Api/DashboardCount",
+        url: "Api/General/DashboardCount",
         method: 'POST',
         data: {
             secrate_key : 'demokey'
