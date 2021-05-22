@@ -20,7 +20,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     	}
     	
         // Testing 
-        function DashboardCount(){
+        function index(){
             $apikey = $this->input->post("secrate_key");
             if($apikey!='')
             {
