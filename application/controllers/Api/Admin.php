@@ -110,7 +110,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                                             $data["status"] = 200;
                                             $data["message"] = "Login Successfully";
                                             $data["details"] = [];
-                                            redirect("Dashboard");
+                                            $this->load->view("Dashboard");
                                         }
                                         else
                                         {
