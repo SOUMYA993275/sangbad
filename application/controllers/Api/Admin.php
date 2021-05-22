@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     //Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE'); //method allowed
     date_default_timezone_set("Asia/Calcutta");
       
-    class login extends CI_Controller { 
+    class Admin extends CI_Controller { 
         
         protected $api_secrate_key = '0655e766e83ddc3e63883ef280a2fb44'; //demokey
         
@@ -20,7 +20,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
     	}
     	
         // Testing 
-        function index(){
+        function Login(){
             $apikey = $this->input->post("secrate_key");
             if($apikey!='')
             {
