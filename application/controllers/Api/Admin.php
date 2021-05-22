@@ -107,7 +107,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                                             $image = $this->session->userdata('image');
                                             $ltdate= $this->session->userdata('lastlogintime');
                                             $this->Adminmodel->LastLoginTimeUpdate($id);
-                                            $this->session->set_flashdata('message3','Login Successfully');
+                                            $data["status"] = 200;
+                                            $data["message"] = "Login Successfully";
+                                            $data["details"] = [];
                                             redirect("Dashboard");
                                         }
                                         else
