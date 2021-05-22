@@ -110,14 +110,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                                             $data["status"] = 200;
                                             $data["message"] = "Login Successfully";
                                             $data["details"] = [];
-                                            //$this->load->view("Dashboard");
-                                        }
+                                         }
                                         else
                                         {
                                             $data["status"] = 404;
                                             $data["message"] = "User Id Removed from database, Please Contact Admin";
                                             $data["details"] = [];
-                                            $this->load->view('backend/login');
                                         }
                                     }
                                     else
@@ -125,7 +123,6 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                                         $data["status"] = 404;
                                         $data["message"] = "User Id Blocked, Please Contact Admin";
                                         $data["details"] = [];
-                                        $this->load->view('backend/login');
                                     }
                                 }
                                 else
@@ -133,7 +130,6 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                                     $data["status"] = 404;
                                     $data["message"] = "User not registered yet, Please check your email.";
                                     $data["details"] = [];
-                                    $this->load->view('backend/login');
                                 }
                             }
                             else
@@ -141,7 +137,6 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                                 $data["status"] = 404;
                                 $data["message"] = "Userid & Password Incorrect";
                                 $data["details"] = [];
-                                $this->load->view('backend/login');
                             }
                         }
                         else
@@ -149,7 +144,6 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                             $data["status"] = 404;
                             $data["message"] = "Userid & Password Blank";
                             $data["details"] = [];
-                            $this->load->view('backend/login');
                         }
                     }
                     else
@@ -162,14 +156,42 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
                 else
                 {
                     $data["status"] = 400;
-                    $data["msg"] = "The 'secrate_key' is invalid!";
+                    $data["message"] = "The 'secrate_key' is invalid!";
                     $data["details"] = [];
                 }
             }
             else
             {
-                $data["status"] = 402;
-                $data["msg"] = "The 'secrate_key' can not be null or blank";
+                $data["status"] = 400;
+                $data["message"] = "The 'secrate_key' can not be null or blank";
+                $data["details"] = [];
+            }
+            echo json_encode($data);
+            
+        }
+
+        function Logout(){
+            $apikey = $this->input->post("secrate_key");
+            if($apikey!='')
+            {
+                if($this->api_secrate_key == md5($apikey))
+                {
+                    $this->session->sess_destroy();
+                    $data["status"] = 200;
+                    $data["message"] = "Logout Successfully";
+                    $data["details"] = [];
+                }
+                else
+                {
+                    $data["status"] = 400;
+                    $data["message"] = "The 'secrate_key' is invalid!";
+                    $data["details"] = [];
+                }
+            }
+            else
+            {
+                $data["status"] = 400;
+                $data["message"] = "The 'secrate_key' can not be null or blank";
                 $data["details"] = [];
             }
             echo json_encode($data);

@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                            <a href="<?=site_url('admin/logout');?>"><button type="button" class="btn btn-info">Log Out</button></a>
+                                            <a id="logout"><button type="submit" class="btn btn-info">Log Out</button></a>
                                         </div>
                                     </div>
                                 </div>
