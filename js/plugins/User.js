@@ -89,7 +89,7 @@ $("#addform").on("submit", function(event) {
         'secrate_key' : 'demokey'
     };
 $.ajax({
-url: "<?=site_url('Api/User/Add');?>",
+url: "Api/User/Add",
 method: 'POST',
 data: formData,
 })
