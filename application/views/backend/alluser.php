@@ -160,7 +160,7 @@
                             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
 			<div class="row" id="user">
-				<div class="col-lg-4"></div>
+				<div class="col-lg-3"></div>
 			</div>
         </div>
         <?php include_once ('footer.php');?>
