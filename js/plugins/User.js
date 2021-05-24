@@ -96,8 +96,7 @@ data: formData,
 .done(function(data) {
 let response = JSON.parse(data);
 if (response.statuss == 200){
-    Userlist();
-	$('#myModal21').modal('hide');
+    
    	swal({
         title: "Success",
         text: response.message,
@@ -105,6 +104,8 @@ if (response.statuss == 200){
         button: false,
         timer: "1500",
         });
+        Userlist();
+        $('#myModal21').modal('hide');
 }
 else if(response.statuss == 403)
 {
