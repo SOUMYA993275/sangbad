@@ -445,17 +445,6 @@ class Adminmodel extends CI_Model
 		$this->db->where('password',$url);
 		$this->db->update('users',$data);
 	}
-	
-	public function userpermissioncheck()
-	{
-		$this->db->select('user_id');
-		$this->db->from('user_permission');
-		$this->db->where('u_status',0);
-		$this->db->group_by('user_id');
-		$this->db->order_by('user_id');
-		$query = $this->db->get(); 
-		return $result = $query->result();
-	}
 
 	public function menupermissioncheck($userid,$menu)
 	{

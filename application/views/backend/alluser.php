@@ -24,6 +24,9 @@
 		z-index: 9999;
 		background: url('<?=base_url ();?>Uploads/general/load.gif') 50% 50% no-repeat rgb(249,249,249);
 	}
+	.modal-header{
+
+	}
 </style>
 	<div class="loader"></div>
 <body>
@@ -53,81 +56,115 @@
                 </div>
 				<div class="col-lg-2">
 					<h2></h2>
-                    <a style="float:right; border-radius: 20px;" href="<?=site_url('User/add_user');?>" class="btn btn-primary block full-width m-b"a style="float:right">Add New User</a>
+                    <a style="float:right; border-radius: 20px;color:white;"data-toggle="modal" data-target="#myModal21" class="btn btn-primary block full-width m-b">Add User</a>
                 </div>
             </div>
+							<div class="modal inmodal" id="myModal21" tabindex="-1" role="dialog1" aria-hidden="true">
+                                <div class="modal-dialog1">
+                                    <div class="modal-content animated flipInY" style="width: 100%;height: 720PX;">
+                                        <div class="modal-header"style="padding: 8px 12px; background-color: #1ab394;text-align: left;font-size: 22px;color: white;font-weight: 1000;">
+                                            <button type="button" title="Close" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <a>Add User</a>
+										</div>
+                                        <div class="modal-body">
+											<form id="addform" action="" enctype="multipart/form-data" method="POST" class="wizard-big">
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>Name *</label>
+															<input id="name" name="name" type="text" pattern="^\S+$" placeholder="Enter Name" class="form-control" required>
+														</div>
+														<div class="form-group">
+															<label>Gender *</label>
+															<select id="gender" name="gender" type="text" required class="form-control">
+															<option value="">Select Gender</option>
+															<option value="MALE">Male</option>
+															<option value="FEMALE">Female</option>
+															<option value="TRANSGENDER">Transgender</option>
+															</select>
+														</div>
+														<div class="form-group">
+														<label>Additional Contact Number (optional)</label>
+														<input id="mobile2" name="mobile2" type="number" placeholder="Enter Mobile Number(if needed)" class="form-control">
+													</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>C/o- *</label>
+															<input id="co" name="co" type="text" pattern="^\S+$" placeholder="Enter Guardian Name" required class="form-control">
+														</div>
+														<div class="form-group">
+															<label>Mobile Number *</label>
+															<input id="mobile" name="mobile" type="number" class="form-control" required placeholder="Enter Mobile Number" onKeyPress="if(this.value.length==10) return false;" pattern="[7-9]{1}[0-9]{9}/^-?\d+\.?\d*$/">
+														</div>
+														<div class="form-group">
+														<label>Designation *</label>
+														<select id="role" name="status" type="text" required class="form-control">
+														<option value="">Select Role</option>
+														<option value="ADMIN">Admin</option>
+														<option value="MANAGER">Manager</option>
+														<option value="USER">User</option>
+														</select>
+													</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group" id="data_1">
+															<label>D.O.B *</label>
+															<div class="input-group date">
+																<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="dob" placeholder="Enter D.O.B" class="form-control" required>
+															</div>
+														</div>
+														<div class="form-group">
+															<label>Email *</label>
+															<input id="email" name="email" type="email" placeholder="Enter Email" required class="form-control">
+														</div>
+														<div class="form-group">
+															<label>Blood Group *</label>
+															<select id="blood" name="blood" type="text" required class="form-control">
+															</select>
+														</div>
+													</div>
+													<div class="col-lg-12">
+														<div class="form-group">
+															<label>Address *</label>
+															<textarea id="address" name="address" rows="5" cols="40" type="text" placeholder="Enter address" class="form-control" required></textarea>
+														</div>
+													</div>
+													<div class="col-lg-8">
+														<div class="form-group">
+															<label>Profile photo *</label>
+															<input id="image" name="image" type="file" placeholder="Select Profile Picture" accept="image/gif, image/jpeg, image/JPEG, image/png, image/PNG, image/jpg, image/JPG" onchange="readURL(this);" required class="form-control">
+														</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group">
+															<img style="border: 1px solid black;height:160px;width:160px;" id="preview1" src="<?=base_url();?>Uploads/general/no_img.png" alt="image" >
+														</div>
+													</div>
+													<div class="checkbox checkbox-success">
+														<input id="acceptTerms" name="acceptTerms" type="checkbox" required class="required">
+														<label for="acceptTerms">I agree with the Terms and Conditions.</label>
+													</div>
+													<div class="col-lg-12" style="border-top: none; text-align: center;">
+														<button type="reset" class="ladda-button btn btn-warning" data-style="zoom-in">Clear Form</button>                                    
+														<button type="submit" class="ladda-button btn btn-primary" data-style="zoom-in">Submit</button>
+													</div>
+												</div>
+											</form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
         <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-		<?php  
-		$i=0;
-		foreach($userdetails as $mn)
-		{
-		$i++;
-		?>
-            <div class="col-lg-3">
-                <div class="contact-box center-version" style="<?php if($mn->nstatus==0){ echo 'border: 6px solid #0cf008; border-radius: 10px'; }else if($mn->nstatus==1){ echo 'border: 6px solid #f60b36; border-radius: 10px';}?>">
-				
-					<a>
-						<img alt="<?=$mn->name;?>" class="rounded-circle" src="<?=base_url($mn->image);?>">
-						<h3 class="m-b-xs"><strong><?=$mn->name;?></strong></h3>
-						<div class="fa fa-user-secret"> <?=$mn->status;?></div>
-                        <div class="font">C/O- <?=$mn->co;?></div>
-                        <div class="font">Blood Group-  <?=$mn->blood;?></div>
-                        <address class="m-t-md">
-                            <h5><?=$mn->address;?></h5>
-                            <abbr title="Phone" class="fa fa-phone"></abbr> <?=$mn->mobile;?> 
-							<?php
-							if($mn->mobile2 == '')
-							{
-							?>
-							&nbsp
-							<?php
-							}
-							else if($mn->mobile2 != '')
-							{
-							?>
-							/ <?=$mn->mobile2;?>
-							<?php
-							}
-							?>
-							<br>
-                            <abbr title="Email" class="fa fa-envelope"></abbr> <?=$mn->email;?>
-                        </address>
-
-                    </a>
-                    <div class="contact-box-footer">
-                        <div class="m-t-xs btn-group">
-                            <?php
-							if($mn->nstatus==1)
-							{
-							?>
-							<button onclick="activeuser('<?=$mn->slno;?>')" type="button" class="btn btn-primary fa fa-check-circle-o"></button>
-							<?php
-							}
-							else if($mn->nstatus==0)
-							{
-							?>
-							<button onclick="inactiveuser('<?=$mn->slno;?>')" type="button" class="btn btn-warning fa fa-check-circle-o"></button>
-							<?php
-							}
-							?>
-							
-                            <button onclick="edituser('<?=$mn->slno;?>')" type="button" class="btn btn-info fa fa-pencil"></button>
-                            <button onclick="deleteuser('<?=$mn->slno;?>')" type="button" class="btn btn-danger fa fa-trash"></button>
-							<button type="button" data-toggle="modal" data-target="#myModal20" class="btn btn-success fa fa-eye"></button>
-						</div>
-                    </div>
-
-                </div>
-            </div>
-		<?php
-		}
-		?>
-        </div>
+			<div class="row" id="user">
+				<div class="col-lg-4"></div>
+			</div>
         </div>
         <?php include_once ('footer.php');?>
-
-        </div>
+		</div>
         </div>
 		<div class="modal inmodal" id="myModal20" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -149,6 +186,105 @@
                                     </div>
                                 </div>
                             </div>
+							<div class="modal inmodal" id="myModal22" tabindex="-1" role="dialog1" aria-hidden="true">
+                                <div class="modal-dialog1">
+                                    <div class="modal-content animated flipInY" style="width: 100%;height: 720PX;">
+                                        <div class="modal-header"style="padding: 8px 12px; background-color: #1ab394;text-align: left;font-size: 22px;color: white;font-weight: 1000;">
+                                            <button type="button" title="Close" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <a>Edit User</a>
+										</div>
+                                        <div class="modal-body">
+											<form id="form" action="" enctype="multipart/form-data" method="POST" class="wizard-big">
+												<div class="row">
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>Name *</label>
+															<input id="name" name="name" type="text" pattern="^\S+$" placeholder="Enter Name" class="form-control" required>
+														</div>
+														<div class="form-group">
+															<label>Gender *</label>
+															<select id="gender" name="gender" type="text" class="form-control" required>
+															<option value="">Select Gender</option>
+															<option value="MALE">Male</option>
+															<option value="FEMALE">Female</option>
+															<option value="TRANSGENDER">Transgender</option>
+															</select>
+														</div>
+														<div class="form-group">
+														<label>Additional Contact Number (optional)</label>
+														<input id="mobile2" name="mobile2" type="number" placeholder="Enter Mobile Number(if needed)" class="form-control">
+													</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group">
+															<label>C/o- *</label>
+															<input id="co" name="co" type="text" pattern="^\S+$" placeholder="Enter Guardian Name" class="form-control" required>
+														</div>
+														<div class="form-group">
+															<label>Mobile Number *</label>
+															<input id="mobile" name="mobile" type="number" class="form-control" required placeholder="Enter Mobile Number" onKeyPress="if(this.value.length==10) return false;" pattern="[7-9]{1}[0-9]{9}/^-?\d+\.?\d*$/">
+														</div>
+														<div class="form-group">
+														<label>Designation *</label>
+														<select id="role" name="status" type="text" class="form-control" required>
+														<option value="">Select Role</option>
+														<option value="ADMIN">Admin</option>
+														<option value="MANAGER">Manager</option>
+														<option value="USER">User</option>
+														</select>
+													</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group" id="data_1">
+															<label>D.O.B *</label>
+															<div class="input-group date">
+																<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="dob" placeholder="Enter D.O.B" class="form-control" required>
+															</div>
+														</div>
+														<div class="form-group">
+															<label>Email *</label>
+															<input id="email" name="email" type="email" placeholder="Enter Email" class="form-control" required>
+														</div>
+														<div class="form-group">
+															<label>Blood Group *</label>
+															<select id="blood" name="blood" type="text" class="form-control" required>
+															</select>
+														</div>
+													</div>
+													<div class="col-lg-12">
+														<div class="form-group">
+															<label>Address *</label>
+															<textarea id="address" name="address" rows="5" cols="40" type="text" placeholder="Enter address" class="form-control" required></textarea>
+														</div>
+													</div>
+													<div class="col-lg-8">
+														<div class="form-group">
+															<label>Profile photo *</label>
+															<input id="image" name="image" type="file" placeholder="Select Profile Picture" accept="image/gif, image/jpeg, image/JPEG, image/png, image/PNG, image/jpg, image/JPG" onchange="readURL(this);" class="form-control" required>
+														</div>
+													</div>
+													<div class="col-lg-4">
+														<div class="form-group">
+															<img style="border: 1px solid black;height:160px;width:160px;" id="preview1" src="<?=base_url();?>Uploads/general/no_img.png" alt="image" >
+														</div>
+													</div>
+													<div class="checkbox checkbox-success">
+														<input id="acceptTerms" name="acceptTerms" type="checkbox" required class="required">
+														<label for="acceptTerms">I agree with the Terms and Conditions.</label>
+													</div>
+													<div class="col-lg-12" style="border-top: none; text-align: center;">
+														<button type="reset" class="ladda-button btn btn-warning" data-style="zoom-in">Clear Form</button>                                    
+														<button type="submit" class="ladda-button btn btn-primary" data-style="zoom-in">Submit</button>
+													</div>
+												</div>
+											</form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script>
     $(window).load(function(){
@@ -161,11 +297,69 @@
     <script src="<?=base_url();?>js/bootstrap.js"></script>
     <script src="<?=base_url();?>js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?=base_url();?>js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="<?=base_url();?>js/plugins/User.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="<?=base_url();?>js/inspinia.js"></script>
     <script src="<?=base_url();?>js/plugins/pace/pace.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+    $("#addform").on("submit", function(event) {
+    event.preventDefault();
+
+    var formData = {
+        'name': $('input[name=name]').val(),//Name
+		'co': $('input[name=co]').val(),// C/O
+		'dob': $('input[name=dob]').val(),// D.O.B
+		'mobile': $('input[name=mobile]').val(),//Mobile
+		'mobile2': $('input[name=mobile2]').val(),//Mobile2
+		'email': $('input[name=email]').val(), //Email
+		'address': $('input[name=address]').val(), // Address
+		'image': $('input[name=image]').val(), // Image
+		'blood': $('input[name=blood]').val(), // Blood
+		'role': $('input[name=status]').val(), // Role
+		'gender': $('input[name=gender]').val(),//Gender
+        'secrate_key' : 'demokey'
+    };
+$.ajax({
+url: "<?=site_url('Api/User/Add');?>",
+method: 'POST',
+data: formData,
+})
+.done(function(data) {
+let response = JSON.parse(data);
+if (response.statuss == 200){
+   	swal({
+        title: "Success",
+        text: response.message,
+        icon: "success",
+        button: false,
+        timer: "1500",
+        });
+	Userlist();
+	$('#myModal21').modal('hide');
+}
+else if(response.statuss == 403)
+{
+	swal({
+        title: "Oops!",
+        text: response.message,
+        icon: "error",
+        button: false,
+        timer: "1500",
+        });
+}
+else if(response.statuss == 402)
+{
+	top.location.href = "ErrorUserbyPermission";
+}
+else if(response.status == 404)
+{
+	top.location.href = "admin";  
+} 
+});
+});
+</script>
 <script>
 			function deleteuser(did)	
 			{		

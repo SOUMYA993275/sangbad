@@ -32,7 +32,6 @@ class User extends CI_Controller {
 				if($Userlists->u_status == '0')
 				{
 					$data['userdetails']=$this->Adminmodel->getUserId();
-					$data['pcount']=$this->Adminmodel->userpermissioncheck();
 					$this->load->view('backend/alluser',$data);
 				}
 				else

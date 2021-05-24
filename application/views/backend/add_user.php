@@ -198,53 +198,6 @@
     <!-- Jquery Validate -->
     <script src="<?=base_url();?>js/plugins/validate/jquery.validate.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-    $(document).ready(function(){
-    $.ajax({
-        url: "<?php echo site_url('Api/General/BloodGroup');?>",
-        method: 'POST',
-        data: {
-            secrate_key : 'demokey'
-        },
-        }).done(function(data) {
-            let response = JSON.parse(data);
-            var html = '';
-            html +='<option value="">Select Blood Group</option>';
-			var i;
-            for(i=0; i < response.data.blood.length; i++){
-            html += '<option value='+response.data.blood[i].b_group+'>'+response.data.blood[i].b_group+'</option>';
-           }
-         $('select#blood').html(html);
-           
-    });
-});
-    </script>
-   <script>
-		function readURL(input) {
-
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-					$("#preview1").css("display", "");
-					$('#preview1').attr('src', e.target.result);
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-			else
-			{
-				$('#preview1').attr('src', '');
-				$("#preview1").css("display", "none");
-			}
-		}
-
-		$("#image").change(function(){
-			readURL(this);
-		});
-	</script>
-	<script>
-        
-    </script>
 <?php
 if($this->session->flashdata('message2') != '')
 {

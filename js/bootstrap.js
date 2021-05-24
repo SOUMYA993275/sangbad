@@ -3934,18 +3934,14 @@ url: "Api/Admin/Logout",
 method: 'POST',
 data: formData,
 })
-.done(function(data) {
-let response = JSON.parse(data);
-if (response.status == 200){
-top.location.href = "admin";
-}
-swal({
-title: "Success",
-text: response.message,
-icon: "success",
-button: false,
-timer: "1500",
-});
-});
+  .done(function(data)
+  {
+    let response = JSON.parse(data);
+    if (response.status == 200)
+    {
+    top.location.href = "admin";
+    }
+
+  });
 });
 //# sourceMappingURL=bootstrap.js.map

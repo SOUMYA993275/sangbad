@@ -15,7 +15,6 @@ data: formData,
 let response = JSON.parse(data);
 if (response.status == 200){
     top.location.href = "Dashboard";
-    setTimeout(3000);
     swal({
         title: "Success",
         text: response.message,

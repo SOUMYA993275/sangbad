@@ -4498,6 +4498,9 @@ video {
 .modal-dialog {
   z-index: 2200;
 }
+.modal-dialog1 {
+  z-index: 2200;
+}
 .modal-body {
   padding: 20px 30px 30px 30px;
 }
@@ -4510,6 +4513,12 @@ video {
   display: block;
 }
 .animated.modal.fade .modal-dialog {
+  -webkit-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+.animated.modal.fade .modal-dialog1 {
   -webkit-transform: none;
   -ms-transform: none;
   -o-transform: none;

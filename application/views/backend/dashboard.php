@@ -335,21 +335,5 @@
         });
         });
 	</script>
-<?php
-if($this->session->flashdata('message3') != '')
-{
-?>
-<script>
-swal({
-title: "Success",
-text: "<?=$this->session->flashdata('message3');?>",
-icon: "success",
-button: false,
-timer: "1500",
-});
-</script>
-<?php
-}
-?>
 </body>
 </html>
