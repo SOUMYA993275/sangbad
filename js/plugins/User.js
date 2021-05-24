@@ -68,3 +68,61 @@ function readURL(input) {
 $("#image").change(function(){
     readURL(this);
 });
+
+
+
+$("#addform").on("submit", function(event) {
+    event.preventDefault();
+
+    var formData = {
+        'name': $('input[name=name]').val(),//Name
+		'co': $('input[name=co]').val(),// C/O
+		'dob': $('input[name=dob]').val(),// D.O.B
+		'mobile': $('input[name=mobile]').val(),//Mobile
+		'mobile2': $('input[name=mobile2]').val(),//Mobile2
+		'email': $('input[name=email]').val(), //Email
+		'address': $('input[name=address]').val(), // Address
+		'image': $('input[name=image]').val(), // Image
+		'blood': $('input[name=blood]').val(), // Blood
+		'role': $('input[name=status]').val(), // Role
+		'gender': $('input[name=gender]').val(),//Gender
+        'secrate_key' : 'demokey'
+    };
+$.ajax({
+url: "<?=site_url('Api/User/Add');?>",
+method: 'POST',
+data: formData,
+})
+.done(function(data) {
+let response = JSON.parse(data);
+if (response.statuss == 200){
+   	swal({
+        title: "Success",
+        text: response.message,
+        icon: "success",
+        button: false,
+        timer: "1500",
+        });
+	Userlist();
+	$('#myModal21').modal('hide');
+}
+else if(response.statuss == 403)
+{
+	swal({
+        title: "Oops!",
+        text: response.message,
+        icon: "error",
+        button: false,
+        timer: "1500",
+        });
+}
+else if(response.statuss == 402)
+{
+	top.location.href = "ErrorUserbyPermission";
+}
+else if(response.status == 404)
+{
+	top.location.href = "admin";  
+} 
+});
+});
