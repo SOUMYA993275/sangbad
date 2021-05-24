@@ -81,11 +81,11 @@ $("#addform").on("submit", function(event) {
 		'mobile': $('input[name=mobile]').val(),//Mobile
 		'mobile2': $('input[name=mobile2]').val(),//Mobile2
 		'email': $('input[name=email]').val(), //Email
-		'address': $('input[name=address]').val(), // Address
+		'address': $('textarea[name=address]').val(), // Address
 		'image': $('input[name=image]').val(), // Image
-		'blood': $('input[name=blood]').val(), // Blood
-		'role': $('input[name=status]').val(), // Role
-		'gender': $('input[name=gender]').val(),//Gender
+		'blood': $('select[name=blood]').val(), // Blood
+		'role': $('select[name=status]').val(), // Role
+		'gender': $('select[name=gender]').val(),//Gender
         'secrate_key' : 'demokey'
     };
 $.ajax({
@@ -96,6 +96,8 @@ data: formData,
 .done(function(data) {
 let response = JSON.parse(data);
 if (response.statuss == 200){
+    Userlist();
+	$('#myModal21').modal('hide');
    	swal({
         title: "Success",
         text: response.message,
@@ -103,8 +105,6 @@ if (response.statuss == 200){
         button: false,
         timer: "1500",
         });
-	Userlist();
-	$('#myModal21').modal('hide');
 }
 else if(response.statuss == 403)
 {
