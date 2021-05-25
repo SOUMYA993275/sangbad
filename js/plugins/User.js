@@ -104,8 +104,9 @@ if (response.statuss == 200){
         button: false,
         timer: "1500",
         });
-        Userlist();
-        $('#myModal21').modal('hide');
+        $('#myModal210').modal('hide');
+        $this.Userlist();
+        
 }
 else if(response.statuss == 403)
 {
