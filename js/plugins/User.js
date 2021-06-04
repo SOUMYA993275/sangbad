@@ -84,7 +84,7 @@ $("#addform").on("submit", function(event) {
 		'address': $('textarea[name=address]').val(), // Address
 		'image': $('input[name=image]').val(), // Image
 		'blood': $('select[name=blood]').val(), // Blood
-		'role': $('select[name=status]').val(), // Role
+		'status': $('select[name=status]').val(), // Role
 		'gender': $('select[name=gender]').val(),//Gender
         'secrate_key' : 'demokey'
     };
@@ -95,7 +95,7 @@ data: formData,
 })
 .done(function(data) {
 let response = JSON.parse(data);
-if (response.statuss == 200){
+if (response.status == 200){
     
    	swal({
         title: "Success",
@@ -104,11 +104,10 @@ if (response.statuss == 200){
         button: false,
         timer: "1500",
         });
-        $('#myModal210').modal('hide');
-        $this.Userlist();
-        
+        Userlist();
+        $('#myModal21').hide;      
 }
-else if(response.statuss == 403)
+else if(response.status == 403)
 {
 	swal({
         title: "Oops!",
@@ -117,8 +116,10 @@ else if(response.statuss == 403)
         button: false,
         timer: "1500",
         });
+        $('#myModal21').hide;
+        Userlist();
 }
-else if(response.statuss == 402)
+else if(response.status == 402)
 {
 	top.location.href = "ErrorUserbyPermission";
 }

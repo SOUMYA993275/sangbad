@@ -63,7 +63,7 @@
                                 <div class="modal-dialog1">
                                     <div class="modal-content animated flipInY" style="width: 100%;height: 720PX;">
                                         <div class="modal-header"style="padding: 8px 12px; background-color: #1ab394;text-align: left;font-size: 22px;color: white;font-weight: 1000;">
-                                            <button type="button" id="myModal210" title="Close" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <button type="button" title="Close" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                             <a>Add User</a>
 										</div>
                                         <div class="modal-body">

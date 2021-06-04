@@ -113,44 +113,43 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 							$officeid=$rqno1.$newstring2;
 							if($result[0]->email != $email )
 							{
-								$docpath ="Uploads/profile/";
+								$docpath ="Uploads/profile";
 								if (file_exists($docpath))
-								{
-								}
-								else
-								{
-									mkdir($docpath, 0777, TRUE);
-								}
-								if(!empty($_FILES['image']['name']))
-								{
-									$config['upload_path'] = $docpath;
-									$config['allowed_types'] = 'jpg|jpeg|png|gif';
-									$config['file_name'] = $_FILES['image']['name'];
+									{
+									}
+									else
+									{
+										mkdir($docpath, 0777, TRUE);
+									}
+									$file1=$_FILES['image'];
+									$ext1 = substr($file1['name'], strrpos($file1['name'], '.') + 1);
+									$path=$docpath."/".$officeid."(a).".$ext1;
 									
-									//Load upload library and initialize configuration
-									$this->load->library('upload',$config);
-									$this->upload->initialize($config);
-									if ($_FILES["image"]["size"] >= 500000 ) 
+									if(file_exists($_FILES["image"]['tmp_name']))
+									{
+										$ext_str1 = "png,jpeg,jpg,PNG,JPG,JEPG,GIF,gif";
+										$allowed_extensions1 = explode(',',$ext_str1);
+										
+										$target_file =basename($_FILES["image"]["name"]);
+										
+										if ($_FILES["image"]["size"] >= 500000 ) 
 										{
-											$data["statuss"] = 403;
-                                            $data["message"] = "Picture Size is Greater than 500kb";
+											$data["status"] = 403;
+                                            $data["message"] = "Picture Size is greater than 500kb";
+											die();
+										}	
+										else if(!in_array($ext1, $allowed_extensions1)) 
+										{
+											$data["status"] = 403;
+                                            $data["message"] = "Picture Size is greater than 500kb";
 											die();
 										}
-										else 
+										else
 										{
-											
+											move_uploaded_file($_FILES["image"]["tmp_name"], $path);
 										}	
-									if($this->upload->do_upload('image')){
-										$uploadData = $this->upload->data();
-										$picture = $uploadData['file_name'];
-										$upparh = $docpath.$picture;
-									}else{
-										$upparh = '';
 									}
-								}else{
-									$upparh = '';
-								}		
-										$data = array(
+										$data6 = array(
 											'username' => $officeid,
 											'password' => md5(123456),
 											'name' => $this->input->post('name'),
@@ -163,7 +162,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 											'status' => $this->input->post('status'),
 											'address' => $this->input->post('address'),
 											'blood' => $this->input->post('blood'),
-											'image' => $upparh,
+											'image' => $path,
 											'nstatus' => 0,
 											'xdelete' => 0,
 											'is_email_verified' => 0,
@@ -176,14 +175,14 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 										'email' => $email,
 										'type' => 'USER VERIFICATION',
 										'response' => 'Send',
-										'content' => json_encode($data),
+										'content' => json_encode($data6),
 										'doc' => date('Y-m-d H:i:s')
 										);
 										$data5 = array(
 										'email' => $email,
 										'type' => 'USER VERIFICATION',
 										'response' => 'Failed',
-										'content' => json_encode($data),
+										'content' => json_encode($data6),
 										'doc' => date('Y-m-d H:i:s')
 										);
 										$email = $this->input->post('email');
@@ -199,40 +198,41 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 										if($this->email->send())
 										{
 											$this->Adminmodel->InsertEmailLogsuc($data3);
-											$this->Adminmodel->InsertUser($data);
-                                            $data["statuss"] = 200;
+											$this->Adminmodel->InsertUser($data6);
+                                            $data["status"] = 200;
                                             $data["message"] = "User Added Successfully";
 										} 
 										else
 										{
+                                            $this->Adminmodel->InsertUser($data6);
 											$this->Adminmodel->InsertEmailLogerr($data5);
-											$data["statuss"] = 403;
+											$data["status"] = 403;
                                             $data["message"] = "Mail Server Error, User not Added";
 										}
                                     }
                                     else
                                     {
-                                        $data["statuss"] = 403;
+                                        $data["status"] = 403;
                                         $data["message"] = "User Already Exist";
                                     }
                             }
                             else
                             {
-                                $data["statuss"] = 402;
+                                $data["status"] = 402;
                                 $data["message"] = "Access Denied";
                                 $data["details"] = [];
                             }
                         }
                         else
                         {
-                            $data["statuss"] = 404;
+                            $data["status"] = 404;
                             $data["message"] = "User Authentication Failed";
                             $data["details"] = [];
                         }
                     }
                     else
                     {
-                        $data["statuss"] = 404;
+                        $data["status"] = 404;
                         $data["message"] = "Session Expired, Relogin Again";
                         $data["details"] = [];
                     }
