@@ -39,7 +39,7 @@ class Adminmodel extends CI_Model
 	
 	public function getUserId()
 	{
-		$this->db->select('*');
+		$this->db->select('slno,username,name,co,dob,image,address,gender,mobile,email,status,nstatus,blood');
 		$this->db->from('users');
 		$this->db->where('xdelete',0);
 		$query = $this->db->get(); 
